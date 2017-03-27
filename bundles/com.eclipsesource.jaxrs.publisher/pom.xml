@@ -13,7 +13,7 @@
 	<groupId>com.eclipsesource</groupId>
 	<artifactId>com.eclipsesource.jaxrs.publisher</artifactId>
 	<version>5.3.1-SNAPSHOT</version>
-	<packaging>eclipse-plugin</packaging>
+	<packaging>jar</packaging>
 
 	<build>
 		<plugins>

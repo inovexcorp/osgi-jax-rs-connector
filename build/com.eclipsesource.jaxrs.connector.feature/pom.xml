@@ -13,6 +13,6 @@
 	<groupId>com.eclipsesource</groupId>
 	<artifactId>com.eclipsesource.jaxrs.connector.feature</artifactId>
 	<version>5.3.1-SNAPSHOT</version>
-	<packaging>eclipse-feature</packaging>
+	<packaging>jar</packaging>
 
 </project>
