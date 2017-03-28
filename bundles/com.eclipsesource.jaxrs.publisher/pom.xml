@@ -10,8 +10,8 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<groupId>com.eclipsesource</groupId>
-	<artifactId>com.eclipsesource.jaxrs.publisher</artifactId>
+	<groupId>com.eclipsesource.jaxrs</groupId>
+	<artifactId>publisher</artifactId>
 	<version>5.3.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
