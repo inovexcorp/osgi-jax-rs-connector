@@ -61,6 +61,7 @@
 							!com.twitter.util.*,
 							!jersey.repackaged.*,
 							javax.servlet.*;version="[2.3.0,4.0.0)";resolution:=optional,
+							javax.annotation,
 							*
 						</Import-Package>
 						<Bundle-RequiredExecutionEnvironment>JavaSE-1.7</Bundle-RequiredExecutionEnvironment>
