@@ -52,7 +52,7 @@ import com.eclipsesource.jaxrs.publisher.ServletConfiguration;
 
 
 @RunWith( MockitoJUnitRunner.class )
-public class JerseyContext_Test {
+public class JerseyContextTest {
 
   private JerseyContext jerseyContext;
   @Mock

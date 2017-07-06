@@ -39,7 +39,7 @@ import com.eclipsesource.jaxrs.publisher.ResourceFilter;
 
 
 @RunWith( MockitoJUnitRunner.class )
-public class Activator_Test {
+public class ActivatorTest {
   
   private Activator activator;
   @Mock

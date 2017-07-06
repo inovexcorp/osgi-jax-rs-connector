@@ -39,7 +39,7 @@ import org.osgi.framework.ServiceReference;
 
 
 @RunWith( MockitoJUnitRunner.class )
-public class ResourceTrackerWithProvider_Test {
+public class ResourceTrackerWithProviderInterfaceTest {
   
   private ResourceTracker resourceTracker;
   @Mock
@@ -50,9 +50,13 @@ public class ResourceTrackerWithProvider_Test {
   private BundleContext context;
   
   @Provider
-  private class FakeProvider implements MessageBodyWriter<Object> {
+  private interface FakeProvider {
+    // no content
+  }
+  
+  private class FakeProviderImpl implements FakeProvider, MessageBodyWriter<Object> {
 
-    public FakeProvider() {
+    public FakeProviderImpl() {
       // no content
     }
 
@@ -89,7 +93,7 @@ public class ResourceTrackerWithProvider_Test {
   
   @Test
   public void delegatesAddServiceWithProvider() {
-    FakeProvider fakeProvider = new FakeProvider();
+    FakeProvider fakeProvider = new FakeProviderImpl();
     when( context.getService( reference ) ).thenReturn( fakeProvider );
     
     resourceTracker.addingService( reference );
@@ -99,7 +103,7 @@ public class ResourceTrackerWithProvider_Test {
   
   @Test
   public void delegatesModifyService() {
-    FakeProvider fakeProvider = new FakeProvider();
+    FakeProvider fakeProvider = new FakeProviderImpl();
     when( context.getService( reference ) ).thenReturn( fakeProvider );
     
     resourceTracker.modifiedService( reference, fakeProvider );
@@ -120,7 +124,7 @@ public class ResourceTrackerWithProvider_Test {
   
   @Test
   public void delegatesRemoveServiceWithProvider() {
-    FakeProvider fakeProvider = new FakeProvider();
+    FakeProvider fakeProvider = new FakeProviderImpl();
     when( context.getService( reference ) ).thenReturn( fakeProvider );
     
     resourceTracker.removedService( reference, fakeProvider );
@@ -136,7 +140,7 @@ public class ResourceTrackerWithProvider_Test {
     
     resourceTracker.removedService( reference, service );
     
-    verify( connector).removeResource( service );
+    verify( connector ).removeResource( service );
     verify( context ).ungetService( reference );
   }
 }

@@ -19,7 +19,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-public class DefaultApplicationConfiguration_Test {
+public class DefaultApplicationConfigurationTest {
 
   private DefaultApplicationConfiguration appConfig;
 

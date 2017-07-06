@@ -16,8 +16,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import javax.ws.rs.core.Feature;
-import javax.ws.rs.core.FeatureContext;
+import javax.ws.rs.Path;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,7 +30,7 @@ import org.osgi.framework.ServiceReference;
 
 
 @RunWith( MockitoJUnitRunner.class )
-public class ResourceTrackerWithFeature_Test {
+public class ResourceTrackerWithResourceInterfaceTest {
   
   private ResourceTracker resourceTracker;
   @Mock
@@ -41,15 +40,15 @@ public class ResourceTrackerWithFeature_Test {
   @Mock
   private BundleContext context;
   
-  private class FakeFeature implements Feature {
-
-    public FakeFeature() {
+  @Path( "test" )
+  private interface FakeResource {
+    // no content
+  }
+  
+  private class FakeResourceImpl implements FakeResource {
+    
+    public FakeResourceImpl() {
       // no content
-    }
-
-    @Override
-    public boolean configure( FeatureContext context ) {
-      return false;
     }
   }
 
@@ -62,8 +61,8 @@ public class ResourceTrackerWithFeature_Test {
   
   @Test
   public void delegatesAddServiceWithPath() {
-    FakeFeature fakeFeature = new FakeFeature();
-    when( context.getService( reference ) ).thenReturn( fakeFeature );
+    FakeResource fakeResource = new FakeResourceImpl();
+    when( context.getService( reference ) ).thenReturn( fakeResource );
     
     resourceTracker.addingService( reference );
     
@@ -72,13 +71,13 @@ public class ResourceTrackerWithFeature_Test {
   
   @Test
   public void delegatesModifyService() {
-    FakeFeature fakeFeature = new FakeFeature();
-    when( context.getService( reference ) ).thenReturn( fakeFeature );
+    FakeResource fakeResource = new FakeResourceImpl();
+    when( context.getService( reference ) ).thenReturn( fakeResource );
     
-    resourceTracker.modifiedService( reference, fakeFeature );
+    resourceTracker.modifiedService( reference, fakeResource );
     
     InOrder order = inOrder( connector );
-    order.verify( connector ).removeResource( fakeFeature );
+    order.verify( connector ).removeResource( fakeResource );
     order.verify( connector ).addResource( reference );
   }
   
@@ -93,12 +92,12 @@ public class ResourceTrackerWithFeature_Test {
   
   @Test
   public void delegatesRemoveServiceWithPath() {
-    FakeFeature fakeFeature = new FakeFeature();
-    when( context.getService( reference ) ).thenReturn( fakeFeature );
+    FakeResource fakeResource = new FakeResourceImpl();
+    when( context.getService( reference ) ).thenReturn( fakeResource );
     
-    resourceTracker.removedService( reference, fakeFeature );
+    resourceTracker.removedService( reference, fakeResource );
     
-    verify( connector ).removeResource( fakeFeature );
+    verify( connector ).removeResource( fakeResource );
     verify( context ).ungetService( reference );
   }
   

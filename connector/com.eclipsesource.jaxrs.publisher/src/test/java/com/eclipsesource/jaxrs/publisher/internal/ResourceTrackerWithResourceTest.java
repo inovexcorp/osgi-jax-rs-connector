@@ -16,16 +16,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Type;
-
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.ext.MessageBodyWriter;
-import javax.ws.rs.ext.Provider;
+import javax.ws.rs.Path;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -39,7 +30,7 @@ import org.osgi.framework.ServiceReference;
 
 
 @RunWith( MockitoJUnitRunner.class )
-public class ResourceTrackerWithProviderInterface_Test {
+public class ResourceTrackerWithResourceTest {
   
   private ResourceTracker resourceTracker;
   @Mock
@@ -49,38 +40,11 @@ public class ResourceTrackerWithProviderInterface_Test {
   @Mock
   private BundleContext context;
   
-  @Provider
-  private interface FakeProvider {
-    // no content
-  }
-  
-  private class FakeProviderImpl implements FakeProvider, MessageBodyWriter<Object> {
+  @Path( "test" )
+  private class FakeResource {
 
-    public FakeProviderImpl() {
+    public FakeResource() {
       // no content
-    }
-
-    @Override
-    public long getSize( Object arg0, Class<?> arg1, Type arg2, Annotation[] arg3, MediaType arg4 )
-    {
-      return -1;
-    }
-
-    @Override
-    public boolean isWriteable( Class<?> arg0, Type arg1, Annotation[] arg2, MediaType arg3 ) {
-      return true;
-    }
-
-    @Override
-    public void writeTo( Object arg0,
-                         Class<?> arg1,
-                         Type arg2,
-                         Annotation[] arg3,
-                         MediaType arg4,
-                         MultivaluedMap<String, Object> arg5,
-                         OutputStream arg6 ) throws IOException, WebApplicationException
-    {
-      // do nothing
     }
   }
 
@@ -92,9 +56,9 @@ public class ResourceTrackerWithProviderInterface_Test {
   }
   
   @Test
-  public void delegatesAddServiceWithProvider() {
-    FakeProvider fakeProvider = new FakeProviderImpl();
-    when( context.getService( reference ) ).thenReturn( fakeProvider );
+  public void delegatesAddServiceWithPath() {
+    FakeResource fakeResource = new FakeResource();
+    when( context.getService( reference ) ).thenReturn( fakeResource );
     
     resourceTracker.addingService( reference );
     
@@ -103,18 +67,18 @@ public class ResourceTrackerWithProviderInterface_Test {
   
   @Test
   public void delegatesModifyService() {
-    FakeProvider fakeProvider = new FakeProviderImpl();
-    when( context.getService( reference ) ).thenReturn( fakeProvider );
+    FakeResource fakeResource = new FakeResource();
+    when( context.getService( reference ) ).thenReturn( fakeResource );
     
-    resourceTracker.modifiedService( reference, fakeProvider );
+    resourceTracker.modifiedService( reference, fakeResource );
     
     InOrder order = inOrder( connector );
-    order.verify( connector ).removeResource( fakeProvider );
+    order.verify( connector ).removeResource( fakeResource );
     order.verify( connector ).addResource( reference );
   }
   
   @Test
-  public void delegatesAddServiceWithoutProvider() {
+  public void delegatesAddServiceWithoutPath() {
     when( context.getService( reference ) ).thenReturn( new Object() );
     
     resourceTracker.addingService( reference );
@@ -123,18 +87,18 @@ public class ResourceTrackerWithProviderInterface_Test {
   }
   
   @Test
-  public void delegatesRemoveServiceWithProvider() {
-    FakeProvider fakeProvider = new FakeProviderImpl();
-    when( context.getService( reference ) ).thenReturn( fakeProvider );
+  public void delegatesRemoveServiceWithPath() {
+    FakeResource fakeResource = new FakeResource();
+    when( context.getService( reference ) ).thenReturn( fakeResource );
     
-    resourceTracker.removedService( reference, fakeProvider );
+    resourceTracker.removedService( reference, fakeResource );
     
-    verify( connector ).removeResource( fakeProvider );
+    verify( connector ).removeResource( fakeResource );
     verify( context ).ungetService( reference );
   }
   
   @Test
-  public void delegatesRemoveServiceWithoutProvider() {
+  public void delegatesRemoveServiceWithoutPath() {
     Object service = new Object();
     when( context.getService( reference ) ).thenReturn( service );
     

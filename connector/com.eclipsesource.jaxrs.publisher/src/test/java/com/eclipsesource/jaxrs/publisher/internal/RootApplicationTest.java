@@ -25,7 +25,7 @@ import org.junit.Test;
 import org.osgi.framework.InvalidSyntaxException;
 
 
-public class RootApplication_Test {
+public class RootApplicationTest {
 
   private RootApplication application;
 

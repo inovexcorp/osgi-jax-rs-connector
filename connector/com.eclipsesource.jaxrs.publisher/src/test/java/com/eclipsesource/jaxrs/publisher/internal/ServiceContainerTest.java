@@ -23,7 +23,7 @@ import org.osgi.framework.ServiceReference;
 import com.eclipsesource.jaxrs.publisher.internal.ServiceContainer.ServiceHolder;
 
 
-public class ServiceContainer_Test {
+public class ServiceContainerTest {
   
   private BundleContext bundleContext;
   private ServiceContainer container;

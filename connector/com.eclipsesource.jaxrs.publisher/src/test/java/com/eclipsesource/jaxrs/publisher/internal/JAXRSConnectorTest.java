@@ -38,7 +38,7 @@ import com.eclipsesource.jaxrs.publisher.ServletConfiguration;
 
 
 @RunWith( MockitoJUnitRunner.class )
-public class JAXRSConnector_Test {
+public class JAXRSConnectorTest {
 
   @Mock
   private ServiceReference httpServiceReference;

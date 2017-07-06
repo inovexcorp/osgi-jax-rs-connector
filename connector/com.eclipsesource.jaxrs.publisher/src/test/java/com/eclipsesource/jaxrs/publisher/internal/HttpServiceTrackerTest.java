@@ -24,7 +24,7 @@ import org.osgi.service.http.HttpService;
 
 
 @RunWith( MockitoJUnitRunner.class )
-public class HttpTracker_Test {
+public class HttpServiceTrackerTest {
   
   private HttpServiceTracker httpTracker;
   @Mock

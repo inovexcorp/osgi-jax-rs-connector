@@ -28,7 +28,7 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 
-public class ResourcePublisher_Test {
+public class ResourcePublisherTest {
   
   private ResourcePublisher resourcePublisher;
   private ServletContainerBridge servletContainerBridge;

@@ -25,7 +25,7 @@ import org.mockito.ArgumentCaptor;
 import org.osgi.service.cm.ConfigurationException;
 
 
-public class Configuration_Test {
+public class ConfigurationTest {
 
   private JAXRSConnector connector;
   private Configuration config;

@@ -1,12 +1,12 @@
 /*******************************************************************************
- * Copyright (c) 2015 Holger Staudacher and others.
+ * Copyright (c) 2015 EclipseSource and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Holger Staudacher - initial API and implementation
+ *    Ivan Iliev - initial API and implementation
  ******************************************************************************/
 package com.eclipsesource.jaxrs.publisher.internal;
 
@@ -21,13 +21,14 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 
-import com.eclipsesource.jaxrs.publisher.ApplicationConfiguration;
+import com.eclipsesource.jaxrs.publisher.ServletConfiguration;
 
 
 @RunWith( MockitoJUnitRunner.class )
-public class ApplicationConfigurationTracker_Test {
+public class ServletConfigurationTrackerTest {
   
-  private ApplicationConfigurationTracker tracker;
+  private ServletConfigurationTracker servletConfigurationTracker;
+  
   @Mock
   private JAXRSConnector connector;
   @Mock
@@ -36,22 +37,22 @@ public class ApplicationConfigurationTracker_Test {
   @Before
   public void setUp() {
     BundleContext context = mock( BundleContext.class );
-    tracker = new ApplicationConfigurationTracker( context, connector );
+    servletConfigurationTracker = new ServletConfigurationTracker( context, connector );
   }
   
   @Test
-  public void delegatesAddAppConfig() {
-    tracker.addingService( reference );
+  public void delegatesAddServletConfigurationService() {
+    servletConfigurationTracker.addingService( reference );
     
-    verify( connector ).addApplicationConfiguration( reference );
+    verify( connector ).setServletConfiguration( reference );
   }
   
   @Test
-  public void delegatesRemoveAppConfig() {
-    ApplicationConfiguration service = mock( ApplicationConfiguration.class );
+  public void delegatesRemoveServletConfigurationService() {
+    ServletConfiguration service = mock( ServletConfiguration.class );
     
-    tracker.removedService( reference, service );
+    servletConfigurationTracker.removedService( reference, service );
     
-    verify( connector ).removeApplicationConfiguration( reference, service );
+    verify( connector ).unsetServletConfiguration( reference, service );
   }
 }

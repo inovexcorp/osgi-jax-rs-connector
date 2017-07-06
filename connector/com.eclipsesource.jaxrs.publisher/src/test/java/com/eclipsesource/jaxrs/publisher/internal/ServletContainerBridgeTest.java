@@ -42,7 +42,7 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 
-public class ServletContainerBridge_Test {
+public class ServletContainerBridgeTest {
 
   RootApplication application;
   private ServletContainerBridge bridge;
