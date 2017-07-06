@@ -35,7 +35,7 @@ public class Activator implements BundleActivator {
 
   private ServiceRegistration connectorRegistration;
   private JAXRSConnector jaxRsConnector;
-  private HttpTracker httpTracker;
+  private HttpServiceTracker httpTracker;
   private ResourceTracker allTracker;
   private ServletConfigurationTracker servletConfigurationTracker;
   private ApplicationConfigurationTracker applicationConfigurationTracker;
@@ -71,7 +71,7 @@ public class Activator implements BundleActivator {
   }
 
   private void openHttpServiceTracker( BundleContext context ) {
-    httpTracker = new HttpTracker( context, jaxRsConnector );
+    httpTracker = new HttpServiceTracker( context, jaxRsConnector );
     httpTracker.open();
   }
 

@@ -26,7 +26,7 @@ import org.osgi.service.http.HttpService;
 @RunWith( MockitoJUnitRunner.class )
 public class HttpTracker_Test {
   
-  private HttpTracker httpTracker;
+  private HttpServiceTracker httpTracker;
   @Mock
   private JAXRSConnector connector;
   @Mock
@@ -35,7 +35,7 @@ public class HttpTracker_Test {
   @Before
   public void setUp() {
     BundleContext context = mock( BundleContext.class );
-    httpTracker = new HttpTracker( context, connector );
+    httpTracker = new HttpServiceTracker( context, connector );
   }
   
   @Test

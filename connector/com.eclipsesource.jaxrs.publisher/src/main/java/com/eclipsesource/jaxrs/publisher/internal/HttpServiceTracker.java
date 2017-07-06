@@ -18,11 +18,11 @@ import org.osgi.service.http.HttpService;
 import org.osgi.util.tracker.ServiceTracker;
 
 
-public class HttpTracker extends ServiceTracker {
+public class HttpServiceTracker extends ServiceTracker {
 
   private final JAXRSConnector connector;
 
-  HttpTracker( BundleContext context, JAXRSConnector connector ) {
+  HttpServiceTracker(BundleContext context, JAXRSConnector connector ) {
     super( context, HttpService.class.getName(), null );
     this.connector = connector;
   }
