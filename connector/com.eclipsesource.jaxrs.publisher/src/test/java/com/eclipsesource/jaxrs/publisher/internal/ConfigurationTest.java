@@ -45,7 +45,7 @@ public class ConfigurationTest {
 
   @Test
   public void testHasDefaultRootPath() {
-    String roothPath = config.getRoothPath();
+    String roothPath = config.getDefaultRootPath();
 
     assertEquals( "/services", roothPath );
   }
@@ -64,7 +64,7 @@ public class ConfigurationTest {
 
     ArgumentCaptor<Configuration> captor = ArgumentCaptor.forClass( Configuration.class );
     verify( connector ).updateConfiguration( captor.capture() );
-    assertEquals( "/test", captor.getValue().getRoothPath() );
+    assertEquals( "/test", captor.getValue().getDefaultRootPath() );
     assertEquals( 4L, captor.getValue().getPublishDelay() );
   }
 
@@ -74,7 +74,7 @@ public class ConfigurationTest {
 
     ArgumentCaptor<Configuration> captor = ArgumentCaptor.forClass( Configuration.class );
     verify( connector ).updateConfiguration( captor.capture() );
-    assertEquals( "/test2", captor.getValue().getRoothPath() );
+    assertEquals( "/test2", captor.getValue().getDefaultRootPath() );
     assertEquals( 4L, captor.getValue().getPublishDelay() );
   }
 
@@ -84,7 +84,7 @@ public class ConfigurationTest {
 
     ArgumentCaptor<Configuration> captor = ArgumentCaptor.forClass( Configuration.class );
     verify( connector ).updateConfiguration( captor.capture() );
-    assertEquals( "/test", captor.getValue().getRoothPath() );
+    assertEquals( "/test", captor.getValue().getDefaultRootPath() );
     assertEquals( 4L, captor.getValue().getPublishDelay() );
   }
 
@@ -94,7 +94,7 @@ public class ConfigurationTest {
 
     ArgumentCaptor<Configuration> captor = ArgumentCaptor.forClass( Configuration.class );
     verify( connector ).updateConfiguration( captor.capture() );
-    assertEquals( "/test", captor.getValue().getRoothPath() );
+    assertEquals( "/test", captor.getValue().getDefaultRootPath() );
     assertEquals( 4L, captor.getValue().getPublishDelay() );
   }
 

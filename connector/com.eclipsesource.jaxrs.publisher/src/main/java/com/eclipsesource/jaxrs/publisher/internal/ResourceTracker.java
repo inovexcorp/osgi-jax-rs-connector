@@ -67,6 +67,7 @@ public class ResourceTracker extends ServiceTracker {
     return service != null && ( hasRegisterableAnnotation( service ) || service instanceof Feature );
   }
 
+  // TODO MVR refactor out and make it a utils class (-:
   private boolean hasRegisterableAnnotation( Object service ) {
     boolean result = isRegisterableAnnotationPresent( service.getClass() );
     if( !result ) {

@@ -8,6 +8,7 @@
         <bundle dependency="true">mvn:com.eclipsesource.jaxrs/jersey-min/${jersey.version}</bundle>
         <bundle dependency="true">mvn:com.eclipsesource.jaxrs/consumer/${project.version}</bundle>
         <bundle>mvn:com.eclipsesource.jaxrs/publisher/${project.version}</bundle>
+        <bundle>mvn:com.eclipsesource.jaxrs/publisher-api/${project.version}</bundle>
     </feature>
 
     <feature name="jax-rs-provider-moxy" version="${project.version}">

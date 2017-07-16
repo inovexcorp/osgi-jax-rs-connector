@@ -15,6 +15,7 @@
 	<name>OSGi - JAX-RS Connector Parent</name>
 	<modules>
 		<module>com.eclipsesource.jaxrs.consumer</module>
+		<module>com.eclipsesource.jaxrs.publisher.api</module>
 		<module>com.eclipsesource.jaxrs.publisher</module>
 	</modules>
 	<build>

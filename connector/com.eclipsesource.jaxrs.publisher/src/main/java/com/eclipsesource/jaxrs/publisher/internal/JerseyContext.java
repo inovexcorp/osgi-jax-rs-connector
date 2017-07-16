@@ -43,12 +43,12 @@ public class JerseyContext {
   private ServiceContainer applicationConfigurations;
 
   public JerseyContext( HttpService httpService,
-                        Configuration configuration,
+                        JerseyContextConfiguration configuration,
                         ServletConfiguration servletConfiguration,
                         ServiceContainer applicationConfigurations )
   {
     this.httpService = httpService;
-    this.rootPath = configuration.getRoothPath();
+    this.rootPath = configuration.getRootPath();
     this.application = new RootApplication();
     this.applicationConfigurations = applicationConfigurations;
     applyApplicationConfigurations( applicationConfigurations );
@@ -57,9 +57,9 @@ public class JerseyContext {
     this.resourcePublisher = new ResourcePublisher( servletContainerBridge, configuration.getPublishDelay() );
   }
 
-  void applyApplicationConfigurations( ServiceContainer applicationConfigurations ) {
+  void applyApplicationConfigurations( ServiceContainer serviceContainer ) {
     getRootApplication().addProperties( new DefaultApplicationConfiguration().getProperties() );
-    ServiceHolder[] services = applicationConfigurations.getServices();
+    ServiceHolder[] services = serviceContainer.getServices();
     for( ServiceHolder serviceHolder : services ) {
       Object service = serviceHolder.getService();
       if( service instanceof ApplicationConfiguration ) {
@@ -77,10 +77,10 @@ public class JerseyContext {
     resourcePublisher.schedulePublishing();
   }
 
-  public void updateConfiguration( Configuration configuration ) {
+  public void updateConfiguration( JerseyContextConfiguration configuration ) {
     resourcePublisher.setPublishDelay( configuration.getPublishDelay() );
     String oldRootPath = this.rootPath;
-    this.rootPath = configuration.getRoothPath();
+    this.rootPath = configuration.getRootPath();
     handleRootPath( oldRootPath );
     applyApplicationConfigurations( this.applicationConfigurations );
     handeRepublish();

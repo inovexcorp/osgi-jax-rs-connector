@@ -13,9 +13,7 @@
 package com.eclipsesource.jaxrs.publisher.internal;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
@@ -23,6 +21,7 @@ import org.osgi.service.http.HttpService;
 
 import com.eclipsesource.jaxrs.publisher.ApplicationConfiguration;
 import com.eclipsesource.jaxrs.publisher.ServletConfiguration;
+import com.eclipsesource.jaxrs.publisher.api.ApplicationRegistry;
 import com.eclipsesource.jaxrs.publisher.internal.ServiceContainer.ServiceHolder;
 
 public class JAXRSConnector {
@@ -34,21 +33,23 @@ public class JAXRSConnector {
   private final Object lock = new Object();
   private final ServiceContainer httpServices;
   private final ServiceContainer resources;
-  private final Map<HttpService, JerseyContext> contextMap;
   private final BundleContext bundleContext;
   private final List<ServiceHolder> resourceCache;
   private ServletConfiguration servletConfiguration;
+
   private final ServiceContainer applicationConfigurations;
   private Configuration configuration;
+  private ApplicationRegistryImpl applicationRegistry;
 
   JAXRSConnector( BundleContext bundleContext ) {
     this.bundleContext = bundleContext;
-    this.configuration = new Configuration( this );
     this.httpServices = new ServiceContainer( bundleContext );
     this.resources = new ServiceContainer( bundleContext );
-    this.contextMap = new HashMap<HttpService, JerseyContext>();
-    this.resourceCache = new ArrayList<ServiceHolder>();
+    this.resourceCache = new ArrayList<>();
     this.applicationConfigurations = new ServiceContainer( bundleContext );
+    // TODO MVR set servletConfiguration
+    this.applicationRegistry = new ApplicationRegistryImpl(new Configuration( this ), new ServiceContainer( bundleContext ));
+    bundleContext.registerService(ApplicationRegistry.class, this.applicationRegistry, null);
   }
 
   void updateConfiguration( Configuration configuration ) {
@@ -99,28 +100,27 @@ public class JAXRSConnector {
   private void doUpdateServletConfiguration() {
     ServiceHolder[] services = httpServices.getServices();
     for( ServiceHolder serviceHolder : services ) {
-      contextMap.get( serviceHolder.getService() ).updateServletConfiguration( servletConfiguration );
+      applicationRegistry.updateServletConfiguration((HttpService) serviceHolder.getService(), servletConfiguration);
     }
   }
 
   private void doUpdateAppConfiguration() {
     ServiceHolder[] services = httpServices.getServices();
     for( ServiceHolder serviceHolder : services ) {
-      contextMap.get( serviceHolder.getService() ).updateAppConfiguration( applicationConfigurations );
+      applicationRegistry.updateAppConfiguration( (HttpService) serviceHolder.getService(), applicationConfigurations );
     }
   }
 
   private void doUpdateConfiguration(Configuration configuration) {
     ServiceHolder[] services = httpServices.getServices();
     for( ServiceHolder serviceHolder : services ) {
-      contextMap.get( serviceHolder.getService() ).updateConfiguration( configuration );
+      applicationRegistry.updateConfiguration( (HttpService) serviceHolder.getService(), configuration);
     }
   }
 
   HttpService doAddHttpService( ServiceReference reference ) {
     ServiceHolder serviceHolder = httpServices.add( reference );
     HttpService service = ( HttpService )serviceHolder.getService();
-    contextMap.put( service, createJerseyContext( service, configuration, servletConfiguration ) );
     clearCache();
     return service;
   }
@@ -140,9 +140,9 @@ public class JAXRSConnector {
   }
 
   void doRemoveHttpService( HttpService service ) {
-    JerseyContext context = contextMap.remove( service );
-    if( context != null ) {
-      cacheFreedResources( context );
+    List<JerseyContext> contexts = applicationRegistry.removeHttpService(service);
+    if( contexts != null) {
+      contexts.forEach(context -> cacheFreedResources( context ));
     }
     httpServices.remove( service );
   }
@@ -183,10 +183,9 @@ public class JAXRSConnector {
   }
 
   private void registerResource( ServiceHolder serviceHolder, Object port ) {
-    HttpService service = findHttpServiceForPort( port );
-    if( service != null ) {
-      JerseyContext jerseyContext = contextMap.get( service );
-      jerseyContext.addResource( serviceHolder.getService() );
+    HttpService httpService = findHttpServiceForPort( port );
+    if( httpService != null ) {
+      applicationRegistry.addResource(httpService, serviceHolder.getService());
     } else {
       cacheResource( serviceHolder );
     }
@@ -223,17 +222,6 @@ public class JAXRSConnector {
   }
 
   private void removeResourcesFromContext( Object resource, HttpService httpService ) {
-    JerseyContext jerseyContext = contextMap.get( httpService );
-    if( jerseyContext != null ) {
-      jerseyContext.removeResource( resource );
-    }
-  }
-
-  // For testing purpose
-  JerseyContext createJerseyContext( HttpService service,
-                                     Configuration configuration,
-                                     ServletConfiguration servletConfiguration )
-  {
-    return new JerseyContext( service, configuration, servletConfiguration, applicationConfigurations );
+    applicationRegistry.removeResource(httpService, resource);
   }
 }

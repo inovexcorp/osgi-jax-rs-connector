@@ -27,7 +27,7 @@ public class Configuration implements ManagedService {
 
   private final JAXRSConnector connector;
   private long publishDelay;
-  private String rootPath;
+  private String defaultRootPath;
 
   public Configuration( JAXRSConnector jaxRsConnector ) {
     this.connector = jaxRsConnector;
@@ -41,7 +41,7 @@ public class Configuration implements ManagedService {
       ensureRootIsPresent( root );
       String rootPath = ( String )root;
       ensureRootIsValid( rootPath );
-      this.rootPath = rootPath;
+      this.defaultRootPath = rootPath;
       this.publishDelay = getPublishDelay( properties );
       connector.updateConfiguration( this );
     }
@@ -71,8 +71,8 @@ public class Configuration implements ManagedService {
     return publishDelay;
   }
 
-  public String getRoothPath() {
-    return rootPath == null ? "/services" : rootPath;
+  public String getDefaultRootPath() {
+    return defaultRootPath == null ? "/services" : defaultRootPath;
   }
 
 }

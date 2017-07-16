@@ -31,6 +31,12 @@
 			<version>${jersey.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.eclipsesource.jaxrs</groupId>
+			<artifactId>publisher-api</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 </project>
