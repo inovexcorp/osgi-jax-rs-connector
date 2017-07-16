@@ -21,6 +21,7 @@ import java.util.Map;
 import javax.servlet.ServletException;
 import javax.ws.rs.core.Application;
 
+import org.osgi.framework.BundleContext;
 import org.osgi.service.http.HttpContext;
 import org.osgi.service.http.HttpService;
 import org.osgi.service.http.NamespaceException;
@@ -42,18 +43,15 @@ public class JerseyContext {
   private String rootPath;
   private ServiceContainer applicationConfigurations;
 
-  public JerseyContext( HttpService httpService,
-                        JerseyContextConfiguration configuration,
-                        ServletConfiguration servletConfiguration,
-                        ServiceContainer applicationConfigurations )
-  {
+  public JerseyContext( BundleContext bundleContext,
+                        HttpService httpService,
+                        JerseyContextConfiguration configuration) {
     this.httpService = httpService;
     this.rootPath = configuration.getRootPath();
     this.application = new RootApplication();
-    this.applicationConfigurations = applicationConfigurations;
+    this.applicationConfigurations = new ServiceContainer( bundleContext ) ;
     applyApplicationConfigurations( applicationConfigurations );
     this.servletContainerBridge = new ServletContainerBridge( application );
-    this.servletConfiguration = servletConfiguration;
     this.resourcePublisher = new ResourcePublisher( servletContainerBridge, configuration.getPublishDelay() );
   }
 

@@ -12,9 +12,12 @@
  ******************************************************************************/
 package com.eclipsesource.jaxrs.publisher.internal;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
@@ -99,6 +102,13 @@ public class ServiceContainer {
   
     void setServiceReference( ServiceReference serviceReference ) {
       this.serviceReference = serviceReference;
+    }
+
+    public Map<String, String> getProperties() {
+      final Map<String, String> properties = Arrays.stream(serviceReference.getPropertyKeys())
+              .filter(key -> serviceReference.getProperty(key) != null)
+              .collect(Collectors.toMap(key -> key, key -> serviceReference.getProperty(key).toString()));
+      return properties;
     }
   }
 

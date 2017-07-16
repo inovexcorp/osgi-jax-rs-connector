@@ -48,7 +48,7 @@ public class JAXRSConnector {
     this.resourceCache = new ArrayList<>();
     this.applicationConfigurations = new ServiceContainer( bundleContext );
     // TODO MVR set servletConfiguration
-    this.applicationRegistry = new ApplicationRegistryImpl(new Configuration( this ), new ServiceContainer( bundleContext ));
+    this.applicationRegistry = new ApplicationRegistryImpl(new Configuration( this ), bundleContext);
     bundleContext.registerService(ApplicationRegistry.class, this.applicationRegistry, null);
   }
 
@@ -185,7 +185,7 @@ public class JAXRSConnector {
   private void registerResource( ServiceHolder serviceHolder, Object port ) {
     HttpService httpService = findHttpServiceForPort( port );
     if( httpService != null ) {
-      applicationRegistry.addResource(httpService, serviceHolder.getService());
+      applicationRegistry.addResource(httpService, serviceHolder.getService(), serviceHolder.getProperties());
     } else {
       cacheResource( serviceHolder );
     }
@@ -217,11 +217,7 @@ public class JAXRSConnector {
     ServiceHolder serviceHolder = resources.find( resource );
     resourceCache.remove( serviceHolder );
     HttpService httpService = findHttpServiceForPort( getPort( serviceHolder ) );
-    removeResourcesFromContext( resource, httpService );
+    applicationRegistry.removeResource(httpService, resource, serviceHolder.getProperties());
     resources.remove( resource );
-  }
-
-  private void removeResourcesFromContext( Object resource, HttpService httpService ) {
-    applicationRegistry.removeResource(httpService, resource);
   }
 }

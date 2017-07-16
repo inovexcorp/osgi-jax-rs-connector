@@ -1,7 +1,6 @@
 
 package com.eclipsesource.jaxrs.publisher.internal;
 
-import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +10,10 @@ import java.util.stream.Collectors;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.Feature;
+import javax.ws.rs.ext.Provider;
 
+import org.osgi.framework.BundleContext;
 import org.osgi.service.http.HttpService;
 
 import com.eclipsesource.jaxrs.publisher.ServletConfiguration;
@@ -23,18 +25,14 @@ import com.eclipsesource.jaxrs.publisher.api.ApplicationRegistry;
  */
 public class ApplicationRegistryImpl implements ApplicationRegistry {
 
-    private ServletConfiguration servletConfiguration;
-    private Configuration configuration;
-    private final ServiceContainer serviceContainer;
+    private final BundleContext bundleContext;
     private final Map<HttpService, Map<String, JerseyContext>> contextMap = new HashMap<>();
+    private final List<Object> featureProviderList = new ArrayList<>();
+    private Configuration configuration;
 
-    public ApplicationRegistryImpl(Configuration configuration, ServiceContainer serviceContainer) {
+    public ApplicationRegistryImpl(Configuration configuration, BundleContext bundleContext) {
         this.configuration = Objects.requireNonNull(configuration);
-        this.serviceContainer = Objects.requireNonNull(serviceContainer);
-    }
-
-    public void setServletConfiguration(ServletConfiguration servletConfiguration) {
-        this.servletConfiguration = servletConfiguration;
+        this.bundleContext = Objects.requireNonNull(bundleContext);
     }
 
     /**
@@ -45,25 +43,37 @@ public class ApplicationRegistryImpl implements ApplicationRegistry {
      * @param httpService The HTTP Service to attach the resource to
      * @param service The service to attach
      */
-    public void addResource(HttpService httpService, Object service) {
-        // Determine location (e.g. /services)
-        String location = getApplicationPath(service);
+    public void addResource(HttpService httpService, Object service, Map<String, String> properties) {
+        // a provider or feature must be registered to all already registered applications
+        if (isFeatureOrProvider(service)) {
+            featureProviderList.add(service);
+            contextMap.values().stream()
+                    .flatMap(value -> value.values().stream())
+                    .forEach(context -> context.addResource(service));
+        } else {
+            // Otherwise create or update a context
 
-        // Get JerseyContext and create if not already created
-        JerseyContext context = getContext(httpService, location);
-        if (context == null) {
-            contextMap.putIfAbsent(httpService, new HashMap<>());
-            contextMap.get(httpService).put(location,
-                    createJerseyContext(
-                            httpService,
-                            new JerseyContextConfiguration()
-                                    .withPublishDelay(configuration.getPublishDelay())
-                                    .withRootPath(location)
-                            , servletConfiguration,
-                            serviceContainer));
-            context = contextMap.get(httpService).get(location);
+            // Determine location (e.g. /services)
+            String location = getApplicationPath(properties);
+
+            // Get JerseyContext and create if not already created
+            JerseyContext context = getContext(httpService, location);
+            if (context == null) {
+                contextMap.putIfAbsent(httpService, new HashMap<>());
+                contextMap.get(httpService).put(location,
+                        createJerseyContext(
+                                bundleContext,
+                                httpService,
+                                new JerseyContextConfiguration()
+                                        .withPublishDelay(configuration.getPublishDelay())
+                                        .withRootPath(location)));
+                context = contextMap.get(httpService).get(location);
+
+                addFeatureAndProvider(context);
+
+            }
+            context.addResource(service);
         }
-        context.addResource(service);
     }
 
     @Override
@@ -76,40 +86,14 @@ public class ApplicationRegistryImpl implements ApplicationRegistry {
                     // get endpoints
                     return e.getValue().getRootApplication().getResources()
                             .stream()
-                            .filter(resource -> hasAnnotation(resource, Path.class))
-                            .map(resource -> getAnnotation(resource, Path.class).value())
+                            .filter(resource -> AnnotationUtils.hasAnnotation(resource, Path.class))
+                            .map(resource -> AnnotationUtils.getAnnotation(resource, Path.class).value())
                             .filter(path -> path != null && !path.trim().isEmpty())
                             .map(path -> path.startsWith("/") ? path.substring(1, path.length()) : path)
                             .map(path -> servletPath + path);
 
                 }).collect(Collectors.toList());
         return endpoints;
-    }
-
-    private <T extends Annotation> T getAnnotation(Object resource, Class<T> annotationClass) {
-            T annotation = resource.getClass().getAnnotation(annotationClass);
-            if( annotation == null ) {
-                Class<?>[] interfaces = resource.getClass().getInterfaces();
-                for( Class<?> type : interfaces ) {
-                    annotation = type.getAnnotation(annotationClass);
-                    if (annotation != null) {
-                        return annotation;
-                    }
-                }
-            }
-            return annotation;
-    }
-
-    // TODO MVR this is duplicated code ...
-    private boolean hasAnnotation(Object service, Class<? extends Annotation> annotationClass) {
-        boolean result = service.getClass().isAnnotationPresent(annotationClass);
-        if( !result ) {
-            Class<?>[] interfaces = service.getClass().getInterfaces();
-            for( Class<?> type : interfaces ) {
-                result = result || type.isAnnotationPresent(annotationClass);
-            }
-        }
-        return result;
     }
 
     private JerseyContext getContext(HttpService httpService, String location) {
@@ -120,22 +104,24 @@ public class ApplicationRegistryImpl implements ApplicationRegistry {
         return null;
     }
 
-    private String getApplicationPath(Object service) {
-        final ApplicationPath applicationPath = findApplicationPathAnnotation(service.getClass());
-        if (applicationPath != null
-                && applicationPath.value() != null
-                && !applicationPath.value().isEmpty()
-                && !applicationPath.value().trim().isEmpty()) {
-            return prependSlashIfMissing(applicationPath.value());
-        }
-        return prependSlashIfMissing(configuration.getDefaultRootPath());
+    private String getApplicationPath(Map<String, String> properties) {
+        String applicationPath = properties.getOrDefault(Properties.APPLICATION_PATH, configuration.getDefaultRootPath());
+        return prependSlashIfMissing(applicationPath);
     }
 
-    public void removeResource(HttpService httpService, Object resource) {
-        final String applicationPath = getApplicationPath(resource);
-        final JerseyContext jerseyContext = getContext(httpService, applicationPath);
-        if( jerseyContext != null ) {
-            jerseyContext.removeResource( resource );
+    public void removeResource(HttpService httpService, Object resource, Map<String, String> properties) {
+        if (isFeatureOrProvider(resource)) {
+            // Remove from all contexts
+            featureProviderList.remove(resource);
+            contextMap.values().stream()
+                    .flatMap(value -> value.values().stream())
+                    .forEach(c -> c.removeResource(resource));
+        } else {
+            final String applicationPath = getApplicationPath(properties);
+            final JerseyContext jerseyContext = getContext(httpService, applicationPath);
+            if (jerseyContext != null) {
+                jerseyContext.removeResource(resource);
+            }
         }
     }
 
@@ -184,11 +170,14 @@ public class ApplicationRegistryImpl implements ApplicationRegistry {
         this.configuration = configuration;
     }
 
-    static JerseyContext createJerseyContext( HttpService service,
-                                              JerseyContextConfiguration configuration,
-                                              ServletConfiguration servletConfiguration,
-                                              ServiceContainer serviceContainer) {
-        return new JerseyContext( service, configuration, servletConfiguration, serviceContainer );
+    private void addFeatureAndProvider(JerseyContext context) {
+        featureProviderList.forEach(resource -> context.addResource(resource));
+    }
+
+    static JerseyContext createJerseyContext( BundleContext bundleContext,
+                                              HttpService service,
+                                              JerseyContextConfiguration configuration ) {
+        return new JerseyContext( bundleContext, service, configuration );
     }
 
     private static String prependSlashIfMissing(String applicationPath) {
@@ -198,16 +187,8 @@ public class ApplicationRegistryImpl implements ApplicationRegistry {
         return applicationPath;
     }
 
-    private static ApplicationPath findApplicationPathAnnotation(Class type) {
-        if (type.getAnnotation(ApplicationPath.class) != null) {
-            return (ApplicationPath) type.getAnnotation(ApplicationPath.class);
-        }
-        for (Class eachType : type.getInterfaces()) {
-            ApplicationPath applicationPath = findApplicationPathAnnotation(eachType);
-            if (applicationPath != null) {
-                return applicationPath;
-            }
-        }
-        return null;
+    private static boolean isFeatureOrProvider(Object service) {
+        return AnnotationUtils.hasAnnotation(service, Provider.class) || service instanceof Feature;
     }
+
 }

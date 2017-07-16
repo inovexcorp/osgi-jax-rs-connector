@@ -67,19 +67,7 @@ public class ResourceTracker extends ServiceTracker {
     return service != null && ( hasRegisterableAnnotation( service ) || service instanceof Feature );
   }
 
-  // TODO MVR refactor out and make it a utils class (-:
-  private boolean hasRegisterableAnnotation( Object service ) {
-    boolean result = isRegisterableAnnotationPresent( service.getClass() );
-    if( !result ) {
-      Class<?>[] interfaces = service.getClass().getInterfaces();
-      for( Class<?> type : interfaces ) {
-        result = result || isRegisterableAnnotationPresent( type );
-      }
-    }
-    return result;
-  }
-
-  private boolean isRegisterableAnnotationPresent( Class<?> type ) {
-    return type.isAnnotationPresent( Path.class ) || type.isAnnotationPresent( Provider.class );
+  private boolean hasRegisterableAnnotation(Object service) {
+    return AnnotationUtils.hasAnnotation(service, Path.class) || AnnotationUtils.hasAnnotation(service, Provider.class);
   }
 }
