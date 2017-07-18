@@ -1,7 +1,26 @@
-# OSGi - JAX-RS Connector 5.3.1
-[![Build Status](https://travis-ci.org/hstaudacher/osgi-jax-rs-connector.png)](https://travis-ci.org/hstaudacher/osgi-jax-rs-connector) [![Maven Status](https://maven-badges.herokuapp.com/maven-central/com.eclipsesource.jaxrs/publisher/badge.png)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.eclipsesource.jaxrs%22) [![License](http://img.shields.io/badge/license-EPL-blue.svg)](http://www.eclipse.org/legal/epl-v10.html) [![Gitter](http://img.shields.io/badge/Gitter-join-yellow.svg)](https://gitter.im/hstaudacher/osgi-jax-rs-connector?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+# OSGi - JAX-RS Connector
+[![Build Status](https://travis-ci.org/OpenNMS/osgi-jax-rs-connector.svg?branch=master)](https://travis-ci.org/OpenNMS/osgi-jax-rs-connector) [![Maven Status](https://maven-badges.herokuapp.com/maven-central/com.eclipsesource.jaxrs/publisher/badge.png)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.eclipsesource.jaxrs%22) [![License](http://img.shields.io/badge/license-EPL-blue.svg)](http://www.eclipse.org/legal/epl-v10.html)
 
-![](http://download.eclipsesource.com/~hstaudacher/connector.png)
+![](connector.png)
+
+# FORK
+
+The `OSGI - JAX-RS Connector` was forked from [here](https://github.com/hstaudacher/osgi-jax-rs-connector).
+
+The original work was modified in a way, that it fits the needs at the OpenNMS project and may not work outside of an Apache Karaf container anymore.
+
+However if anything is missing or needs changing, please feel free to get in contact or open a Pull Request.
+
+The following changes have been made to the original work from Holger Staudacher:
+ * Make it a pure maven project. Simply build via `mvn clean install -D skipTests`
+ * Make the `karaf-integration` work with Apache Karaf v4.1
+ * Allow deploying ReST endpoints to different application path's via service property `application-path`.
+ 
+Known issues:
+ * Tests do not work anymore
+ * Swagger integration does not work with Apache Karaf
+ * Documentation is outdated
+
 
 [JAX-RS (JSR 311)](http://jsr311.java.net/) is the community-driven standard for
 building RESTful web services with Java. The reference implementation for JAX-RS is
