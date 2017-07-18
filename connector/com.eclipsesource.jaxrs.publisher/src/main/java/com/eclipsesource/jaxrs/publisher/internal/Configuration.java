@@ -8,6 +8,7 @@
  * Contributors:
  *    Holger Staudacher - initial API and implementation, ongoing development
  *    ProSyst Software GmbH. - compatibility with OSGi specification 4.2 APIs
+ *    Markus von Rüden - various changed and enhancements
  ******************************************************************************/
 package com.eclipsesource.jaxrs.publisher.internal;
 

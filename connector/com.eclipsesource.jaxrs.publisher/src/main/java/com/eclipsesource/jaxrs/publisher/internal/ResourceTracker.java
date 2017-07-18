@@ -10,6 +10,7 @@
  *    Dirk Lecluse - added tracking of Provider classes
  *    Frank Appel - specified Filter to exclude resources from publishing
  *    Ivan Iliev - Performance Optimizations
+ *    Markus von Rüden - various changed and enhancements
  ******************************************************************************/
 package com.eclipsesource.jaxrs.publisher.internal;
 

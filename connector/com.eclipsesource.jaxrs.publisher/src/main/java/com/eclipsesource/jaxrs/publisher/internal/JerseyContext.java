@@ -10,6 +10,7 @@
  *    Dragos Dascalita  - disbaled autodiscovery
  *    Lars Pfannenschmidt  - made WADL generation configurable
  *    Ivan Iliev - added ServletConfiguration handling, Optimized Performance
+ *    Markus von Rüden - various changed and enhancements
  ******************************************************************************/
 package com.eclipsesource.jaxrs.publisher.internal;
 
