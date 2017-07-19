@@ -14,6 +14,7 @@
 	<packaging>pom</packaging>
 	<name>OSGi - JAX-RS Connector - Providers</name>
 	<modules>
+		<module>com.eclipsesource.jaxrs.provider.jackson</module>
 		<module>com.eclipsesource.jaxrs.provider.moxy</module>
 		<module>com.eclipsesource.jaxrs.provider.gson</module>
 		<module>com.eclipsesource.jaxrs.provider.security</module>

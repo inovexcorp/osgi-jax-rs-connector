@@ -15,6 +15,11 @@
         <feature version="${eclipselink.moxy.version}">eclipselink-moxy</feature>
         <bundle>mvn:com.eclipsesource.jaxrs/provider-moxy/${project.version}</bundle>
     </feature>
+    
+    <feature  name='jax-rs-provider-jackson' version='${project.version}' description="Jackson Json Provider for Jersey" >
+        <feature version="${jackson.version}">jackson</feature>
+        <bundle>mvn:com.eclipsesource.jaxrs/provider-jackson/${project.version}</bundle>
+    </feature>
 
     <feature name="jax-rs-provider-gson" version="${jax-rs-providers.gson.version}">
         <bundle dependency="true">mvn:com.google.code.gson/gson/2.3</bundle>
@@ -50,5 +55,15 @@
         <bundle>mvn:com.eclipsesource.jaxrs/publisher-api/${project.version}</bundle>
         <bundle>mvn:com.eclipsesource.jaxrs/shell-commands/${project.version}</bundle>
     </feature>
-    
+
+    <!-- Dependency Features -->
+    <feature name="jackson" version="${jackson.version}" description="Jackson :: Jaxrs">
+        <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-databind/${jackson.version}</bundle>
+        <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-core/${jackson.version}</bundle>
+        <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-annotations/${jackson.annotation.version}</bundle>
+        <bundle dependency="true">mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-base/${jackson.version}</bundle>
+        <bundle dependency="true">mvn:com.fasterxml.jackson.module/jackson-module-jaxb-annotations/${jackson.version}</bundle>
+        <bundle dependency="true">mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider/${jackson.version}</bundle>
+    </feature>
+
 </features>
