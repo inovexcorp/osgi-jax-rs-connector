@@ -1,20 +1,21 @@
 package com.eclipsesource.jaxrs.sample.consumer;
 
-import com.eclipsesource.jaxrs.consumer.ConsumerPublisher;
-import com.eclipsesource.jaxrs.sample.service.GreetingResource;
-import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
+import java.util.Map;
+
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.Map;
+import com.eclipsesource.jaxrs.consumer.ConsumerPublisher;
+import com.eclipsesource.jaxrs.sample.service.GreetingResource;
 
 @Component(immediate = true)
-@Slf4j
 public class PublishConsumerService {
 
-    @Getter
+    private final Logger log  = LoggerFactory.getLogger(getClass());
+
     private ConsumerPublisher publisher;
 
     @Activate
@@ -32,5 +33,9 @@ public class PublishConsumerService {
 
     protected void unSetPublisher(ConsumerPublisher consumerPublisher) {
         this.publisher = null;
+    }
+
+    public ConsumerPublisher getPublisher() {
+        return publisher;
     }
 }

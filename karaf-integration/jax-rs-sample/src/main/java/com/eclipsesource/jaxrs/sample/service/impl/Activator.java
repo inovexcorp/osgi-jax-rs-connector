@@ -1,13 +1,16 @@
 package com.eclipsesource.jaxrs.sample.service.impl;
 
-import com.eclipsesource.jaxrs.sample.service.GreetingResource;
-import lombok.extern.slf4j.Slf4j;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@Slf4j
+import com.eclipsesource.jaxrs.sample.service.GreetingResource;
+
 public class Activator implements BundleActivator {
+
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     private ServiceRegistration<GreetingResource> registration;
 
