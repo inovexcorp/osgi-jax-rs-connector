@@ -1,5 +1,4 @@
 language: java
 jdk:
   - oraclejdk8
-# Tests do not work anymore
-script: "mvn clean install -DskipTests"
+script: "mvn clean install"
