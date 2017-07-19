@@ -45,4 +45,10 @@
         <bundle dependency="true">mvn:org.eclipse.persistence/org.eclipse.persistence.antlr/${eclipselink.moxy.version}</bundle>
         <bundle dependency="true">mvn:org.eclipse.persistence/org.eclipse.persistence.moxy/${eclipselink.moxy.version}</bundle>
     </feature>
+
+    <feature name="jax-rs-shell-commands" version="${project.version}" description="JAX RS OSGi Shell Commands">
+        <bundle>mvn:com.eclipsesource.jaxrs/publisher-api/${project.version}</bundle>
+        <bundle>mvn:com.eclipsesource.jaxrs/shell-commands/${project.version}</bundle>
+    </feature>
+    
 </features>
