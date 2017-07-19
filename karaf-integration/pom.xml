@@ -9,7 +9,7 @@
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <groupId>com.eclipsesource.jaxrs.examples</groupId>
+    <groupId>com.eclipsesource.jaxrs</groupId>
     <artifactId>karaf-integration</artifactId>
     <name>Karaf Integration</name>
     <packaging>pom</packaging>
