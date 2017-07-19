@@ -1,19 +1,18 @@
 <features xmlns="http://karaf.apache.org/xmlns/features/v1.0.0" name="osgi-jax-rs-connector">
 
-    <feature name="jax-rs-connector" version="${project.version}" resolver="(obr)">
+    <feature name="jax-rs-connector" version="${project.version}" resolver="(obr)" description="Jersey JAX RS OSGi Connector">
         <feature>http</feature>
         <feature>scr</feature>
         <bundle dependency="true">mvn:javax.annotation/javax.annotation-api/1.2</bundle>
         <bundle dependency="true">mvn:javax.servlet/javax.servlet-api/${servlet.version}</bundle>
         <bundle dependency="true">mvn:com.eclipsesource.jaxrs/jersey-min/${jersey.version}</bundle>
-        <bundle dependency="true">mvn:com.eclipsesource.jaxrs/consumer/${project.version}</bundle>
+        <bundle>mvn:com.eclipsesource.jaxrs/consumer/${project.version}</bundle>
         <bundle>mvn:com.eclipsesource.jaxrs/publisher/${project.version}</bundle>
         <bundle>mvn:com.eclipsesource.jaxrs/publisher-api/${project.version}</bundle>
     </feature>
 
-    <feature name="jax-rs-provider-moxy" version="${project.version}">
-        <bundle dependency="true">mvn:org.eclipse.persistence/org.eclipse.persistence.core/2.5.2</bundle>
-        <bundle dependency="true">mvn:org.eclipse.persistence/org.eclipse.persistence.moxy/2.5.2</bundle>
+    <feature name="jax-rs-provider-moxy" version="${project.version}" description="Moxy Json Provider for Jersey">
+        <feature version="${eclipselink.moxy.version}">eclipselink-moxy</feature>
         <bundle>mvn:com.eclipsesource.jaxrs/provider-moxy/${project.version}</bundle>
     </feature>
 
@@ -40,4 +39,10 @@
         <!--<bundle>mvn:com.eclipsesource.jaxrs/provider-swagger/${jax-rs-providers.swagger.version}</bundle>        -->
     <!--</feature>-->
 
+    <feature name="eclipselink-moxy" version="${eclipselink.moxy.version}" description="Eclipselink :: Moxy">
+        <bundle dependency="true">mvn:org.eclipse.persistence/org.eclipse.persistence.core/${eclipselink.moxy.version}</bundle>
+        <bundle dependency="true">mvn:org.eclipse.persistence/org.eclipse.persistence.asm/${eclipselink.moxy.version}</bundle>
+        <bundle dependency="true">mvn:org.eclipse.persistence/org.eclipse.persistence.antlr/${eclipselink.moxy.version}</bundle>
+        <bundle dependency="true">mvn:org.eclipse.persistence/org.eclipse.persistence.moxy/${eclipselink.moxy.version}</bundle>
+    </feature>
 </features>

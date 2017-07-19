@@ -11,10 +11,6 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>itest</artifactId>
     <name>Karaf Integration - Integration Tests</name>
-    <properties>
-        <karaf.version>3.0.2</karaf.version>
-        <pax-exam.version>4.3.0</pax-exam.version>
-    </properties>
     <dependencies>
         <dependency>
             <groupId>com.eclipsesource.jaxrs</groupId>
@@ -82,7 +78,7 @@
         <dependency>
             <groupId>org.ops4j.pax.url</groupId>
             <artifactId>pax-url-aether</artifactId>
-            <version>2.2.0</version>
+            <version>${pax.url.aether.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -100,6 +96,12 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit-version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.eclipsesource.jaxrs</groupId>
+            <artifactId>publisher-api</artifactId>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 
