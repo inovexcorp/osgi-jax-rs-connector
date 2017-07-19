@@ -19,4 +19,10 @@ import java.util.List;
 public interface ApplicationRegistry {
 
     List<String> getEndpoints();
+
+    List<String> getRootPaths();
+
+    List<ApplicationDTO> getAllApplications();
+
+    boolean isApplicationReady(String context);
 }

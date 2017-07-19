@@ -17,6 +17,7 @@ import org.osgi.framework.BundleContext;
 import org.osgi.service.http.HttpService;
 
 import com.eclipsesource.jaxrs.publisher.ServletConfiguration;
+import com.eclipsesource.jaxrs.publisher.api.ApplicationDTO;
 import com.eclipsesource.jaxrs.publisher.api.ApplicationRegistry;
 
 /**
@@ -94,6 +95,39 @@ public class ApplicationRegistryImpl implements ApplicationRegistry {
 
                 }).collect(Collectors.toList());
         return endpoints;
+    }
+
+    @Override
+    public List<String> getRootPaths() {
+        return contextMap.values().stream().flatMap(v -> v.keySet().stream()).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ApplicationDTO> getAllApplications() {
+        return contextMap.values().stream().flatMap(v -> v.entrySet().stream())
+                .map(e -> {
+                    final String context = e.getKey();
+                    final RootApplication rootApplication = e.getValue().getRootApplication();
+                    final ApplicationDTO dto = new ApplicationDTO(context);
+                    dto.setResources(rootApplication.getResources());
+                    dto.setProperties(rootApplication.getProperties());
+                    return dto;
+                })
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean isApplicationReady(String context) {
+        if (contextMap.isEmpty()) {
+            return false;
+        }
+        return contextMap.values().stream()
+                .map(v -> v.get(context))
+                .filter(c -> c != null)
+                .map(c -> c.isApplicationReady())
+                .reduce((ready, ready2) -> ready.booleanValue() && ready2.booleanValue())
+                .get();
+
     }
 
     private JerseyContext getContext(HttpService httpService, String location) {

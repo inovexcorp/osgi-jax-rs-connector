@@ -216,6 +216,10 @@ public class JerseyContext {
     isApplicationRegistered = false;
   }
 
+  public boolean isApplicationReady() {
+    return servletContainerBridge.isJerseyReady() && isApplicationRegistered;
+  }
+
   // For testing purpose
   RootApplication getRootApplication() {
     return application;
