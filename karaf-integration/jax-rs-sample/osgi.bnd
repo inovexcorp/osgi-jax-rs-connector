@@ -1,1 +1,2 @@
 Bundle-Activator: com.eclipsesource.jaxrs.sample.service.impl.Activator
+Bundle-RequiredExecutionEnvironment: ${required.jdk.version}
