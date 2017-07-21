@@ -1,8 +1,3 @@
-# OSGi - JAX-RS Connector
-[![Build Status](https://travis-ci.org/OpenNMS/osgi-jax-rs-connector.svg?branch=master)](https://travis-ci.org/OpenNMS/osgi-jax-rs-connector) [![Maven Status](https://maven-badges.herokuapp.com/maven-central/com.eclipsesource.jaxrs/publisher/badge.png)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.eclipsesource.jaxrs%22) [![License](http://img.shields.io/badge/license-EPL-blue.svg)](http://www.eclipse.org/legal/epl-v10.html)
-
-![](connector.png)
-
 # FORK
 
 The `OSGI - JAX-RS Connector` was forked from [here](https://github.com/hstaudacher/osgi-jax-rs-connector).
@@ -21,6 +16,10 @@ Known issues:
  * Swagger integration does not work with Apache Karaf
  * Documentation is outdated
 
+# OSGi - JAX-RS Connector
+[![Build Status](https://travis-ci.org/OpenNMS/osgi-jax-rs-connector.svg?branch=master)](https://travis-ci.org/OpenNMS/osgi-jax-rs-connector) [![Maven Status](https://maven-badges.herokuapp.com/maven-central/com.eclipsesource.jaxrs/publisher/badge.png)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.eclipsesource.jaxrs%22) [![License](http://img.shields.io/badge/license-EPL-blue.svg)](http://www.eclipse.org/legal/epl-v10.html)
+
+![](connector.png)
 
 [JAX-RS (JSR 311)](http://jsr311.java.net/) is the community-driven standard for
 building RESTful web services with Java. The reference implementation for JAX-RS is
