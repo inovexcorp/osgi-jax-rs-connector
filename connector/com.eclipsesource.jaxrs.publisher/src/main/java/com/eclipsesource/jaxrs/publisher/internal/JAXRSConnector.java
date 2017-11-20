@@ -21,6 +21,7 @@ import org.osgi.framework.ServiceReference;
 import org.osgi.service.http.HttpService;
 
 import com.eclipsesource.jaxrs.publisher.ApplicationConfiguration;
+import com.eclipsesource.jaxrs.publisher.JerseyContextFactory;
 import com.eclipsesource.jaxrs.publisher.ServletConfiguration;
 import com.eclipsesource.jaxrs.publisher.api.ApplicationRegistry;
 import com.eclipsesource.jaxrs.publisher.internal.ServiceContainer.ServiceHolder;
@@ -42,12 +43,16 @@ public class JAXRSConnector {
   private ApplicationRegistryImpl applicationRegistry;
 
   JAXRSConnector( BundleContext bundleContext ) {
+    this(bundleContext, new DefaultJerseyContextFactory());
+  }
+
+  JAXRSConnector(BundleContext bundleContext, JerseyContextFactory jerseyContextFactory) {
     this.bundleContext = bundleContext;
     this.httpServices = new ServiceContainer( bundleContext );
     this.resources = new ServiceContainer( bundleContext );
     this.resourceCache = new ArrayList<>();
     this.applicationConfigurations = new ServiceContainer( bundleContext );
-    this.applicationRegistry = new ApplicationRegistryImpl(new Configuration( this ), bundleContext);
+    this.applicationRegistry = new ApplicationRegistryImpl(new Configuration( this ), bundleContext, jerseyContextFactory);
     bundleContext.registerService(ApplicationRegistry.class, this.applicationRegistry, null);
   }
 

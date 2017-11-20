@@ -47,13 +47,39 @@ public class JerseyContext {
   public JerseyContext( BundleContext bundleContext,
                         HttpService httpService,
                         JerseyContextConfiguration configuration) {
+    this(httpService,
+          configuration,
+          new RootApplication(),
+          new ServiceContainer( bundleContext ),
+          null);
+  }
+
+  JerseyContext(HttpService httpService,
+                Configuration configuration,
+                ServiceContainer applicationConfigurations) {
+    this(httpService,
+            new JerseyContextConfiguration().withConfiguration(configuration),
+            new RootApplication(),
+            applicationConfigurations, null);
+  }
+
+  JerseyContext( HttpService httpService,
+                 JerseyContextConfiguration configuration,
+                 RootApplication rootApplication,
+                 ServiceContainer applicationConfigurations,
+                 ServletConfiguration servletConfiguration) {
+    this.servletConfiguration = servletConfiguration;
     this.httpService = httpService;
     this.rootPath = configuration.getRootPath();
-    this.application = new RootApplication();
-    this.applicationConfigurations = new ServiceContainer( bundleContext ) ;
+    this.application = rootApplication;
+    this.applicationConfigurations = applicationConfigurations;
     applyApplicationConfigurations( applicationConfigurations );
     this.servletContainerBridge = new ServletContainerBridge( application );
     this.resourcePublisher = new ResourcePublisher( servletContainerBridge, configuration.getPublishDelay() );
+  }
+
+  JerseyContext(HttpService httpService, Configuration configuration, ServletConfiguration servletConfiguration, ServiceContainer applicationConfigurations) {
+    this(httpService, new JerseyContextConfiguration().withConfiguration(configuration), new RootApplication(), applicationConfigurations, servletConfiguration);
   }
 
   void applyApplicationConfigurations( ServiceContainer serviceContainer ) {

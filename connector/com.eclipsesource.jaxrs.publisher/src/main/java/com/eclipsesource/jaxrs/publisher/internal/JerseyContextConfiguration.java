@@ -14,6 +14,8 @@
 
 package com.eclipsesource.jaxrs.publisher.internal;
 
+import java.util.Objects;
+
 public class JerseyContextConfiguration {
 
     private long publishDelay;
@@ -53,5 +55,20 @@ public class JerseyContextConfiguration {
 
     public void setRootPath(String rootPath) {
         this.rootPath = rootPath;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || !(obj instanceof JerseyContextConfiguration)) return false;
+        final JerseyContextConfiguration other = (JerseyContextConfiguration) obj;
+        final boolean equals = Objects.equals(publishDelay, other.publishDelay)
+                && Objects.equals(rootPath, other.rootPath);
+        return equals;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(publishDelay, rootPath);
     }
 }

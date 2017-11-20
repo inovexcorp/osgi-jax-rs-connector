@@ -16,6 +16,7 @@ import javax.ws.rs.ext.Provider;
 import org.osgi.framework.BundleContext;
 import org.osgi.service.http.HttpService;
 
+import com.eclipsesource.jaxrs.publisher.JerseyContextFactory;
 import com.eclipsesource.jaxrs.publisher.ServletConfiguration;
 import com.eclipsesource.jaxrs.publisher.api.AnnotationUtils;
 import com.eclipsesource.jaxrs.publisher.api.ApplicationDTO;
@@ -30,11 +31,13 @@ public class ApplicationRegistryImpl implements ApplicationRegistry {
     private final BundleContext bundleContext;
     private final Map<HttpService, Map<String, JerseyContext>> contextMap = new HashMap<>();
     private final List<Object> featureProviderList = new ArrayList<>();
+    private final JerseyContextFactory jerseyContextFactory;
     private Configuration configuration;
 
-    public ApplicationRegistryImpl(Configuration configuration, BundleContext bundleContext) {
+    public ApplicationRegistryImpl(Configuration configuration, BundleContext bundleContext, JerseyContextFactory jerseyContextFactory) {
         this.configuration = Objects.requireNonNull(configuration);
         this.bundleContext = Objects.requireNonNull(bundleContext);
+        this.jerseyContextFactory = Objects.requireNonNull(jerseyContextFactory);
     }
 
     /**
@@ -63,7 +66,7 @@ public class ApplicationRegistryImpl implements ApplicationRegistry {
             if (context == null) {
                 contextMap.putIfAbsent(httpService, new HashMap<>());
                 contextMap.get(httpService).put(location,
-                        createJerseyContext(
+                        jerseyContextFactory.createJerseyContext(
                                 bundleContext,
                                 httpService,
                                 new JerseyContextConfiguration()
@@ -72,7 +75,6 @@ public class ApplicationRegistryImpl implements ApplicationRegistry {
                 context = contextMap.get(httpService).get(location);
 
                 addFeatureAndProvider(context);
-
             }
             context.addResource(service);
         }
@@ -207,12 +209,6 @@ public class ApplicationRegistryImpl implements ApplicationRegistry {
 
     private void addFeatureAndProvider(JerseyContext context) {
         featureProviderList.forEach(resource -> context.addResource(resource));
-    }
-
-    static JerseyContext createJerseyContext( BundleContext bundleContext,
-                                              HttpService service,
-                                              JerseyContextConfiguration configuration ) {
-        return new JerseyContext( bundleContext, service, configuration );
     }
 
     private static String prependSlashIfMissing(String applicationPath) {
