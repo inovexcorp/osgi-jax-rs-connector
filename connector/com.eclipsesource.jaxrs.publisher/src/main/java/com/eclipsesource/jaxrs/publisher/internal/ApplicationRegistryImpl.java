@@ -17,6 +17,7 @@ import org.osgi.framework.BundleContext;
 import org.osgi.service.http.HttpService;
 
 import com.eclipsesource.jaxrs.publisher.ServletConfiguration;
+import com.eclipsesource.jaxrs.publisher.api.AnnotationUtils;
 import com.eclipsesource.jaxrs.publisher.api.ApplicationDTO;
 import com.eclipsesource.jaxrs.publisher.api.ApplicationRegistry;
 

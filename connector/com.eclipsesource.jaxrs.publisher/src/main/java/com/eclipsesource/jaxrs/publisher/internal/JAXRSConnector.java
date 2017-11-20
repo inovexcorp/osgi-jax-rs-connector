@@ -39,7 +39,6 @@ public class JAXRSConnector {
   private ServletConfiguration servletConfiguration;
 
   private final ServiceContainer applicationConfigurations;
-  private Configuration configuration;
   private ApplicationRegistryImpl applicationRegistry;
 
   JAXRSConnector( BundleContext bundleContext ) {
@@ -48,14 +47,12 @@ public class JAXRSConnector {
     this.resources = new ServiceContainer( bundleContext );
     this.resourceCache = new ArrayList<>();
     this.applicationConfigurations = new ServiceContainer( bundleContext );
-    // TODO MVR set servletConfiguration
     this.applicationRegistry = new ApplicationRegistryImpl(new Configuration( this ), bundleContext);
     bundleContext.registerService(ApplicationRegistry.class, this.applicationRegistry, null);
   }
 
   void updateConfiguration( Configuration configuration ) {
     synchronized( lock ) {
-      this.configuration = configuration;
       doUpdateConfiguration(configuration);
     }
   }

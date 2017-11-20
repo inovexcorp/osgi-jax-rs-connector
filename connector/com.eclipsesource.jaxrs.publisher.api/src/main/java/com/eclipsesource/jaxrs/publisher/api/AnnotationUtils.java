@@ -12,7 +12,7 @@
  *    Markus von Rüden - various changes and enhancements
  ******************************************************************************/
 
-package com.eclipsesource.jaxrs.publisher.internal;
+package com.eclipsesource.jaxrs.publisher.api;
 
 import java.lang.annotation.Annotation;
 

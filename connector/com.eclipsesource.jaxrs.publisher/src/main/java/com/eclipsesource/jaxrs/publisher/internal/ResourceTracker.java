@@ -23,6 +23,8 @@ import org.osgi.framework.Filter;
 import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTracker;
 
+import com.eclipsesource.jaxrs.publisher.api.AnnotationUtils;
+
 
 public class ResourceTracker extends ServiceTracker {
 

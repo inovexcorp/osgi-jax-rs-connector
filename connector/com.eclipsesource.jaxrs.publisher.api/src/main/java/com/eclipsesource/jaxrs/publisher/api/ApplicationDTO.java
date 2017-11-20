@@ -28,7 +28,8 @@
 
 package com.eclipsesource.jaxrs.publisher.api;
 
-import java.lang.annotation.Annotation;
+import static com.eclipsesource.jaxrs.publisher.api.AnnotationUtils.*;
+
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -74,30 +75,4 @@ public class ApplicationDTO {
         return context;
     }
 
-    // TODO MVr use annotationutils
-    public static <T extends Annotation> T getAnnotation(Object resource, Class<T> annotationClass) {
-        T annotation = resource.getClass().getAnnotation(annotationClass);
-        if( annotation == null ) {
-            Class<?>[] interfaces = resource.getClass().getInterfaces();
-            for( Class<?> type : interfaces ) {
-                annotation = type.getAnnotation(annotationClass);
-                if (annotation != null) {
-                    return annotation;
-                }
-            }
-        }
-        return annotation;
-    }
-
-    // TODO MVr use annotationutils
-    public static boolean hasAnnotation(Object service, Class<? extends Annotation> annotationClass) {
-        boolean result = service.getClass().isAnnotationPresent(annotationClass);
-        if( !result ) {
-            Class<?>[] interfaces = service.getClass().getInterfaces();
-            for( Class<?> type : interfaces ) {
-                result = result || type.isAnnotationPresent(annotationClass);
-            }
-        }
-        return result;
-    }
 }
