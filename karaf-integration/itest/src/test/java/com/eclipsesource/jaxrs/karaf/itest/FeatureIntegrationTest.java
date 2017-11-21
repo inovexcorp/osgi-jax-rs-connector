@@ -5,9 +5,8 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.ops4j.pax.exam.CoreOptions.maven;
 import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
-import static org.ops4j.pax.exam.CoreOptions.options;
 import static org.ops4j.pax.exam.CoreOptions.vmOption;
-import static org.ops4j.pax.exam.CoreOptions.when;
+import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.editConfigurationFilePut;
 import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.karafDistributionConfiguration;
 import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.keepRuntimeFolder;
 
@@ -22,6 +21,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ops4j.pax.exam.Configuration;
 import org.ops4j.pax.exam.Option;
+import org.ops4j.pax.exam.OptionUtils;
 import org.ops4j.pax.exam.junit.PaxExam;
 import org.ops4j.pax.exam.karaf.options.KarafDistributionOption;
 import org.ops4j.pax.exam.options.MavenArtifactUrlReference;
@@ -51,28 +51,52 @@ public class FeatureIntegrationTest {
 
     @Configuration
     public Option[] config() {
-
-        MavenArtifactUrlReference karafUrl = maven()
+        // URL definitions
+        final MavenArtifactUrlReference karafUrl = maven()
                 .groupId("org.apache.karaf")
                 .artifactId("apache-karaf")
                 .type("tar.gz")
                 .versionAsInProject();
-
-        MavenUrlReference karafStandardRepo = maven().groupId("org.apache.karaf.features")
+        final MavenUrlReference karafStandardRepo = maven().groupId("org.apache.karaf.features")
                 .artifactId("standard")
                 .classifier("features")
                 .type("xml")
                 .versionAsInProject();
-
-        MavenUrlReference projectFeatures = maven().groupId("com.eclipsesource.jaxrs")
+        final MavenUrlReference projectFeatures = maven().groupId("com.eclipsesource.jaxrs")
                 .artifactId("features")
                 .classifier("features")
                 .type("xml")
                 .versionAsInProject();
 
-        return options(
-                when(Boolean.getBoolean("debug")).useOptions(vmOption("-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005")),
+        // Configure container
+        Option[] options = new Option[0];
 
+        // Enable debugging of container
+        if (Boolean.getBoolean("debug")) {
+            options = OptionUtils.combine(
+                    options,
+                    vmOption("-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"));
+        }
+
+        // By default a custom localRepository property will not be used, so manually force the container to use it
+        if (System.getProperty("localRepository") != null) {
+            final String localRepository = System.getProperty("localRepository");
+            options = OptionUtils.combine(
+                options,
+                editConfigurationFilePut(
+                    "etc/org.ops4j.pax.url.mvn.cfg",
+                    "org.ops4j.pax.url.mvn.defaultRepositories",
+                    String.join(",\n", new String[] {
+                            "file:" + localRepository + "@snapshots@id=default-repo",
+                            "file:${karaf.home}/${karaf.default.repository}@id=system.repository@snapshots",
+                            "file:${karaf.data}/kar@id=kar.repository@multi@snapshots",
+                            "file:${karaf.base}/${karaf.default.repository}@id=child.system.repository@snapshots"
+                    })));
+        }
+
+        // More options
+        options = OptionUtils.combine(
+                options,
                 karafDistributionConfiguration().frameworkUrl(karafUrl)
                         .unpackDirectory(new File("target/exam"))
                         .useDeployFolder(false),
@@ -84,6 +108,7 @@ public class FeatureIntegrationTest {
 
                 mavenBundle().groupId("com.eclipsesource.jaxrs").artifactId("jax-rs-sample").versionAsInProject()
         );
+        return options;
     }
 
     @Test
