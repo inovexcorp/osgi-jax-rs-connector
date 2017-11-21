@@ -27,6 +27,12 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>com.eclipsesource.jaxrs</groupId>
+            <artifactId>shell-commands</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.apache.karaf</groupId>
             <artifactId>apache-karaf</artifactId>
             <version>${karaf.version}</version>
