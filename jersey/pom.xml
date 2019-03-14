@@ -69,6 +69,8 @@
 						<Embed-Directory>dependencies</Embed-Directory>
 						<Embed-StripGroup>true</Embed-StripGroup>
 						<Embed-Transitive>true</Embed-Transitive>
+						<!-- TODO MVR for now we set it to 1.8, but should use 1.9 instead -->
+						<Require-Capability>osgi.ee;filter:="(&amp;(osgi.ee=JavaSE)(version=1.8))"</Require-Capability>
 					</instructions>
 				</configuration>
 				<executions>
