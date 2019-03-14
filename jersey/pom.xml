@@ -47,7 +47,7 @@
 						<Bundle-Version>${project.version}</Bundle-Version>
 						<Bundle-Vendor>Holger Staudacher</Bundle-Vendor>
 						<_exportcontents>
-							javax.ws.*,
+							javax.ws.rs.*;version="${jaxrs.version}",
 							javax.annotation.*,
 							org.glassfish.*,
 							javax.inject.*
