@@ -3,13 +3,13 @@
 	<parent>
 		<groupId>com.eclipsesource.jaxrs</groupId>
 		<artifactId>jersey</artifactId>
-		<version>2.22.2</version>
+		<version>2.22.2.ONMS.2</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.eclipsesource.jaxrs</groupId>
 	<artifactId>jersey-min</artifactId>
-	<version>2.22.2</version>
+	<version>2.22.2.ONMS.2</version>
 	<dependencies>
 		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>
