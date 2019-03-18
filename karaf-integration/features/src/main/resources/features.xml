@@ -5,7 +5,7 @@
         <feature>scr</feature>
         <bundle dependency="true">mvn:javax.annotation/javax.annotation-api/1.2</bundle>
         <bundle dependency="true">mvn:javax.servlet/javax.servlet-api/${servlet.version}</bundle>
-        <bundle dependency="true">mvn:com.eclipsesource.jaxrs/jersey-min/${onms.jersey.version}</bundle>
+        <bundle dependency="true">mvn:com.eclipsesource.jaxrs/jersey-min/${project.version}</bundle>
         <bundle>mvn:com.eclipsesource.jaxrs/consumer/${project.version}</bundle>
         <bundle>mvn:com.eclipsesource.jaxrs/publisher/${project.version}</bundle>
         <bundle>mvn:com.eclipsesource.jaxrs/publisher-api/${project.version}</bundle>

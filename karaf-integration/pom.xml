@@ -73,7 +73,7 @@
             <dependency>
                 <groupId>com.eclipsesource.jaxrs</groupId>
                 <artifactId>jersey-min</artifactId>
-                <version>${jersey.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.eclipsesource.jaxrs</groupId>
