@@ -1,0 +1,2 @@
+Bundle-Activator: com.eclipsesource.jaxrs.connector.example.mvc.Activator
+Bundle-RequiredExecutionEnvironment: ${required.jdk.version}

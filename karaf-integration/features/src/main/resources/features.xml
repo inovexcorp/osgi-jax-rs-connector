@@ -11,6 +11,11 @@
         <bundle>mvn:com.eclipsesource.jaxrs/publisher-api/${project.version}</bundle>
     </feature>
 
+    <feature name="jersey-all" version="${project.version}" resolver="(obr)" description="Jersey JAX RS OSGi Connector">
+        <feature>jax-rs-connector</feature>
+        <bundle dependency="true">mvn:com.eclipsesource.jaxrs/jersey-all/${project.version}</bundle>
+    </feature>
+
     <feature name="jax-rs-provider-moxy" version="${project.version}" description="Moxy Json Provider for Jersey">
         <feature version="${eclipselink.moxy.version}">eclipselink-moxy</feature>
         <bundle>mvn:com.eclipsesource.jaxrs/provider-moxy/${project.version}</bundle>

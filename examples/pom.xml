@@ -15,7 +15,10 @@
     <packaging>pom</packaging>
     <version>1.0.2.ONMS</version>
     <modules>
-        <module>pojo</module>
+        <module>publisher-pojo</module>
+        <module>publisher-ds</module>
+        <module>publisher-mvc</module>
+        <!--module>publisher-swagger</module-->
     </modules>
     <build>
         <plugins>
@@ -51,6 +54,11 @@
                 <artifactId>org.osgi.compendium</artifactId>
                 <version>${org.osgi.compendium.version}</version>
             </dependency>
+			<dependency>
+				<groupId>org.osgi</groupId>
+				<artifactId>org.osgi.service.component.annotations</artifactId>
+                <version>${org.osgi.service.component.annotations.version}</version>
+			</dependency>
             <dependency>
                 <groupId>javax</groupId>
                 <artifactId>javaee-web-api</artifactId>
