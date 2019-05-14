@@ -1,43 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.eclipsesource</groupId>
+	<groupId>com.eclipsesource.jaxrs</groupId>
 	<artifactId>osgi-jaxrs-connector</artifactId>
 	<version>1.0.2.ONMS</version>
 	<packaging>pom</packaging>
 	<name>OSGi - JAX-RS Connector</name>
-	<properties>
-		<!-- Other Properties -->
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<required.jdk.version>JavaSE-1.8</required.jdk.version>
-		<test-arguments>-Xms512m -Xmx512m -javaagent:${jacocoagent}=destfile=${basedir}/target/lib/jacoco.jar,append=true</test-arguments>
+	<description></description>
 
-		<!-- Version Properties-->
-		<eclipselink.moxy.version>2.5.2</eclipselink.moxy.version>
-		<findbugs-version>2.5.5</findbugs-version>
-		<jackson.version>2.9.8</jackson.version>
-		<jackson.annotation.version>2.9.0</jackson.annotation.version>
-		<jacocoagent>${basedir}/target/lib/jacocoagent.jar</jacocoagent>
-	  	<javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>
-		<javaee-web-api.version>7.0</javaee-web-api.version>
-		<jaxrs.version>2.1.1</jaxrs.version>
-		<jax-rs-providers.gson.version>2.3</jax-rs-providers.gson.version>
-		<jersey.version>2.22.2</jersey.version>
-		<junit-version>4.12</junit-version>
-		<karaf.version>4.0.9</karaf.version>
-		<mockito-version>1.9.5</mockito-version>
-		<org.osgi.core.version>5.0.0</org.osgi.core.version>
-		<org.osgi.compendium.version>5.0.0</org.osgi.compendium.version>
-		<org.osgi.service.component.annotations.version>1.4.0</org.osgi.service.component.annotations.version>
-		<pax-exam.version>4.9.1</pax-exam.version>
-		<pax.url.aether.version>2.5.2</pax.url.aether.version>
-		<servlet.version>3.0.1</servlet.version>
-		<slf4j-api.version>1.7.12</slf4j-api.version>
-		<surefire-version>2.18</surefire-version>
-		<swagger.version>1.5.7</swagger.version>
-	</properties>
 	<modules>
 		<module>connector</module>
 		<module>jersey</module>
@@ -45,17 +17,453 @@
 		<module>karaf-integration</module>
 		<module>examples</module>
 	</modules>
+
+	<properties>
+		<!-- General Settings -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<!-- Build relevant information -->
+		<java.version>1.8</java.version>
+		<maven.api.minimum>3.6.0</maven.api.minimum>
+		<maven.api.version>3.6.0</maven.api.version>
+		
+		<!-- Other Properties -->
+		<required.jdk.version>JavaSE-1.8</required.jdk.version>
+		<test-arguments>-Xms512m -Xmx512m -javaagent:${jacocoagent}=destfile=${basedir}/target/lib/jacoco.jar,append=true</test-arguments>
+
+		<!-- Apache Karaf version information -->
+		<apache.karaf.version>4.2.5</apache.karaf.version>
+		<apache.karaf.version.osgi>${apache.karaf.version}</apache.karaf.version.osgi>
+		<apache.karaf.plugin.version>${apache.karaf.version}</apache.karaf.plugin.version>
+
+		<!-- sticks to the version used in pax-logging -->
+		<log4j2.version>2.8.2</log4j2.version>
+		<slf4j.version>1.7.26</slf4j.version>
+
+		<!-- OSGi version information -->
+		<osgi.core.version>6.0.0</osgi.core.version>
+		<osgi.service.cm.version>1.6.0</osgi.service.cm.version>
+		<osgi.service.component.annotations.version>1.4.0</osgi.service.component.annotations.version>
+		<osgi.service.event.version>1.4.0</osgi.service.event.version>
+		<osgi.service.http.version>1.2.1</osgi.service.http.version>
+
+		<!-- Test version information -->
+		<junit.version>4.12</junit.version>
+		<easymock.version>4.0.2</easymock.version>
+		<surefire.version>3.0.0-M3</surefire.version>
+		<mockito.version>2.27.0</mockito.version>
+		<findbugs.version>2.5.5</findbugs.version>
+		<pax-exam.version>4.9.1</pax-exam.version>
+
+		<!-- Dependency version information -->
+		<eclipselink.moxy.version>2.5.2</eclipselink.moxy.version>
+		<jackson.version>2.9.8</jackson.version>
+		<jackson.annotation.version>2.9.0</jackson.annotation.version>
+		<gson.version>2.8.5</gson.version>
+		<jacocoagent>${basedir}/target/lib/jacocoagent.jar</jacocoagent>
+	  	<javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>
+		<javaee-web-api.version>7.0</javaee-web-api.version>
+		<jaxrs.version>2.1.1</jaxrs.version>
+		<jersey.version>2.22.2</jersey.version>
+		<pax.url.aether.version>2.5.2</pax.url.aether.version>
+		<servlet.version>3.0.1</servlet.version>
+		<swagger.version>1.5.22</swagger.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- /Test -->
+	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.osgi</groupId>
+				<artifactId>org.osgi.core</artifactId>
+				<version>${osgi.core.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.osgi</groupId>
+				<artifactId>org.osgi.service.cm</artifactId>
+				<version>${osgi.service.cm.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.osgi</groupId>
+				<artifactId>org.osgi.service.component.annotations</artifactId>
+				<version>${osgi.service.component.annotations.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.osgi</groupId>
+				<artifactId>org.osgi.service.event</artifactId>
+				<version>${osgi.service.event.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.osgi</groupId>
+				<artifactId>org.osgi.service.http</artifactId>
+				<version>${osgi.service.http.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.karaf.shell</groupId>
+				<artifactId>org.apache.karaf.shell.core</artifactId>
+				<version>${apache.karaf.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.karaf</groupId>
+				<artifactId>org.apache.karaf.util</artifactId>
+				<version>${apache.karaf.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-api</artifactId>
+				<version>${log4j2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-core</artifactId>
+				<version>${log4j2.version}</version>
+			</dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>javax.servlet-api</artifactId>
+				<version>${servlet.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.ws.rs</groupId>
+				<artifactId>javax.ws.rs-api</artifactId>
+				<version>${jaxrs.version}</version>
+			</dependency>
+
+            <dependency>
+                <groupId>javax</groupId>
+                <artifactId>javaee-web-api</artifactId>
+                <version>${javaee-web-api.version}</version>
+            </dependency>
+
+			<dependency>
+				<groupId>org.glassfish.jersey.containers</groupId>
+				<artifactId>jersey-container-servlet</artifactId>
+				<version>${jersey.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.glassfish.jersey.media</groupId>
+				<artifactId>jersey-media-sse</artifactId>
+				<version>${jersey.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.glassfish.jersey.media</groupId>
+				<artifactId>jersey-media-multipart</artifactId>
+				<version>${jersey.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.google.code.gson</groupId>
+				<artifactId>gson</artifactId>
+				<version>${gson.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.fasterxml.jackson.jaxrs</groupId>
+				<artifactId>jackson-jaxrs-json-provider</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>io.swagger</groupId>
+				<artifactId>swagger-jersey2-jaxrs</artifactId>
+				<version>${swagger.version}</version>
+			</dependency>
+
+            <!-- Project Bundles -->
+            <dependency>
+                <groupId>com.eclipsesource.jaxrs</groupId>
+                <artifactId>publisher</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eclipsesource.jaxrs</groupId>
+                <artifactId>publisher-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eclipsesource.jaxrs</groupId>
+                <artifactId>consumer</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eclipsesource.jaxrs</groupId>
+                <artifactId>jersey-min</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eclipsesource.jaxrs</groupId>
+                <artifactId>provider-moxy</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eclipsesource.jaxrs</groupId>
+                <artifactId>provider-gson</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eclipsesource.jaxrs</groupId>
+                <artifactId>provider-multipart</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eclipsesource.jaxrs</groupId>
+                <artifactId>provider-security</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eclipsesource.jaxrs</groupId>
+                <artifactId>provider-sse</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eclipsesource.jaxrs</groupId>
+                <artifactId>provider-swagger</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+			<!-- Test -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-core</artifactId>
+				<version>${mockito.version}</version>
+				<scope>test</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.8.0</version>
+					<configuration>
+						<source>${java.version}</source>
+						<target>${java.version}</target>
+						<encoding>UTF-8</encoding>
+						<showDeprecation>true</showDeprecation>
+						<showWarnings>true</showWarnings>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-install-plugin</artifactId>
+					<version>3.0.0-M1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>3.0.0-M1</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.apache.maven.wagon</groupId>
+							<artifactId>wagon-http</artifactId>
+							<version>3.2.0</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<version>3.1.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>3.1.0</version>
+					<configuration>
+						<escapeString>\</escapeString>
+						<overwrite>true</overwrite>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-remote-resources-plugin</artifactId>
+					<version>1.6.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>3.0.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.commonjava.maven.plugins</groupId>
+					<artifactId>directory-maven-plugin</artifactId>
+					<version>0.3.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.felix</groupId>
+					<artifactId>maven-bundle-plugin</artifactId>
+					<version>4.1.0</version>
+					<extensions>true</extensions>
+					<configuration>
+						<instructions>
+							<_removeheaders>
+								Include-Resource,
+								Bnd-LastModified,
+								Built-By,
+								Tool,
+								Created-By,
+								Private-Package,
+								Build-Jdk,
+								Import-Service,
+								Export-Service
+							</_removeheaders>
+							<_dsannotations>*</_dsannotations>
+							<_include>-osgi.bnd</_include>
+						</instructions>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<version>3.1.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>versions-maven-plugin</artifactId>
+					<version>2.7</version>
+				</plugin>
+				<!-- Unit tests -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${surefire.version}</version>
+					<configuration>
+						<skip>false</skip>
+						<includes>
+							<include>**/Test*.java</include>
+						</includes>
+					</configuration>
+				</plugin>
+				<!-- Code Analysis -->
+				<plugin>
+					<groupId>com.github.spotbugs</groupId>
+					<artifactId>spotbugs-maven-plugin</artifactId>
+					<version>3.1.9</version>
+					<dependencies>
+						<!-- overwrite dependency on spotbugs if you want to specify the version of spotbugs -->
+						<dependency>
+							<groupId>com.github.spotbugs</groupId>
+							<artifactId>spotbugs</artifactId>
+							<version>3.1.10</version>
+						</dependency>
+					</dependencies>
+					<configuration>
+						<!--
+							Enables analysis which takes more memory but finds more bugs.
+							If you run out of memory, changes the value of the effort element
+							to 'low'.
+						-->
+						<effort>Max</effort>
+						<!-- Defines files to exclude -->
+						<excludeFilterFile></excludeFilterFile>
+						<!-- Reports all bugs (other values are medium and max) -->
+						<threshold>Low</threshold>
+						<!-- Produces XML report -->
+						<xmlOutput>true</xmlOutput>
+						<spotbugsXmlOutput>true</spotbugsXmlOutput>
+						<failOnError>false</failOnError>
+						<fork>false</fork>
+						<plugins>
+							<plugin>
+								<groupId>com.h3xstream.findsecbugs</groupId>
+								<artifactId>findsecbugs-plugin</artifactId>
+								<version>LATEST</version> <!-- Auto-update to the latest stable -->
+							</plugin>
+						</plugins>
+					</configuration>
+				</plugin>
+				<!-- Reporting -->
+				<plugin>
+					<!-- see http://maven.apache.org/plugins/maven-site-plugin/i18n.html -->
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>3.7.1</version>
+					<configuration>
+						<locales>en,de</locales>
+						<siteDirectory>${project.basedir}/site</siteDirectory>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>3.0.1</version>
+					<configuration>
+						<excludePackageNames></excludePackageNames>
+						<additionalparam>
+							-Xdoclint:none
+							--base-dir ${project.basedir}
+							--attribute "name=${project.name}"
+							--attribute "version=${project.version}"
+							--attribute "title-link=http://example.com[${project.name} ${project.version}]"
+						</additionalparam>
+						<additionalOptions>-Xdoclint:none</additionalOptions>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-report-plugin</artifactId>
+					<version>${surefire.version}</version>
+				</plugin>
+				<!-- Misc -->
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>3.0.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>3.1.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.karaf.tooling</groupId>
+					<artifactId>karaf-maven-plugin</artifactId>
+					<version>${apache.karaf.plugin.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.0</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
 			<!--
 				Pin the deploy plugin to the same version as OpenNMS, otherwise mvn deploy
 				does not work as expected. The reason for this is that some deploy properties
@@ -93,61 +501,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!--<plugin>-->
-				<!--<groupId>org.apache.maven.plugins</groupId>-->
-				<!--<artifactId>maven-javadoc-plugin</artifactId>-->
-				<!--<version>2.10</version>-->
-				<!--<executions>-->
-				  <!--<execution>-->
-					<!--<id>attach-javadocs</id>-->
-					<!--<goals>-->
-					  <!--<goal>jar</goal>-->
-					<!--</goals>-->
-				  <!--</execution>-->
-				<!--</executions>-->
-			  <!--</plugin>-->
-				<!-- Configure FindBugs -->
-				<!--<plugin>-->
-					<!--<groupId>org.codehaus.mojo</groupId>-->
-					<!--<artifactId>findbugs-maven-plugin</artifactId>-->
-					<!--<version>${findbugs-version}</version>-->
-					<!--<configuration>-->
-						<!--<findbugsXmlOutput>true</findbugsXmlOutput>-->
-						<!--<failOnError>false</failOnError>-->
-					<!--</configuration>-->
-					<!--<executions>-->
-						<!--<execution>-->
-							<!--<goals>-->
-								<!--<goal>check</goal>-->
-							<!--</goals>-->
-						<!--</execution>-->
-					<!--</executions>-->
-				<!--</plugin>-->
-			</plugins>
+		</plugins>
 	</build>
-	<dependencies>
-		<dependency>
-			<groupId>javax.ws.rs</groupId>
-			<artifactId>javax.ws.rs-api</artifactId>
-			<version>${jaxrs.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit-version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-			<version>${mockito-version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<version>${mockito-version}</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+
 </project>

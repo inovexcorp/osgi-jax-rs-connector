@@ -1,15 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<parent>
-		<groupId>com.eclipsesource.jaxrs</groupId>
-		<artifactId>jersey</artifactId>
-		<version>1.0.2.ONMS</version>
-		<relativePath>../pom.xml</relativePath>
-	</parent>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.eclipsesource.jaxrs</groupId>
+
+    <parent>
+        <groupId>com.eclipsesource.jaxrs</groupId>
+        <artifactId>jersey</artifactId>
+        <version>1.0.2.ONMS</version>
+        <relativePath>../</relativePath>
+    </parent>
+
 	<artifactId>jersey-min</artifactId>
-	<description>Shaded jersey-min ${jersey.version}</description>
+	<name>OSGi - JAX-RS Connector - Jersey Shades - jersey-min ${jersey.version}</name>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>

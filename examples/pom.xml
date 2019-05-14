@@ -1,116 +1,38 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
     <parent>
-        <groupId>com.eclipsesource</groupId>
+        <groupId>com.eclipsesource.jaxrs</groupId>
         <artifactId>osgi-jaxrs-connector</artifactId>
         <version>1.0.2.ONMS</version>
-        <relativePath>../pom.xml</relativePath>
+        <relativePath>../</relativePath>
     </parent>
-    <groupId>com.eclipsesource.jaxrs</groupId>
+
     <artifactId>examples</artifactId>
-    <name>Examples</name>
     <packaging>pom</packaging>
-    <version>1.0.2.ONMS</version>
+    <name>OSGi - JAX-RS Connector - Examples</name>
+
     <modules>
+		<module>consumer-ds</module>
+		<!--module>consumer-caller</module-->
         <module>publisher-pojo</module>
         <module>publisher-ds</module>
         <module>publisher-mvc</module>
         <!--module>publisher-swagger</module-->
     </modules>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <version>4.1.0</version>
-                <extensions>true</extensions>
-                <inherited>true</inherited>
-                <configuration>
-                    <instructions>
-                        <_dsannotations>*</_dsannotations>
-                        <_include>-osgi.bnd</_include>
-                    </instructions>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${slf4j-api.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.osgi</groupId>
-                <artifactId>org.osgi.core</artifactId>
-                <version>${org.osgi.core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.osgi</groupId>
-                <artifactId>org.osgi.compendium</artifactId>
-                <version>${org.osgi.compendium.version}</version>
-            </dependency>
-			<dependency>
-				<groupId>org.osgi</groupId>
-				<artifactId>org.osgi.service.component.annotations</artifactId>
-                <version>${org.osgi.service.component.annotations.version}</version>
-			</dependency>
-            <dependency>
-                <groupId>javax</groupId>
-                <artifactId>javaee-web-api</artifactId>
-                <version>${javaee-web-api.version}</version>
-            </dependency>
-            <!-- osgi jax-rs bundles -->
-            <dependency>
-                <groupId>com.eclipsesource.jaxrs</groupId>
-                <artifactId>publisher</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.eclipsesource.jaxrs</groupId>
-                <artifactId>consumer</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.eclipsesource.jaxrs</groupId>
-                <artifactId>jersey-min</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.eclipsesource.jaxrs</groupId>
-                <artifactId>provider-moxy</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.eclipsesource.jaxrs</groupId>
-                <artifactId>provider-gson</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.eclipsesource.jaxrs</groupId>
-                <artifactId>provider-multipart</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.eclipsesource.jaxrs</groupId>
-                <artifactId>provider-security</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.eclipsesource.jaxrs</groupId>
-                <artifactId>provider-sse</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.eclipsesource.jaxrs</groupId>
-                <artifactId>provider-swagger</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+
+	<build>
+		<finalName>${project.artifactId}-${project.version}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>

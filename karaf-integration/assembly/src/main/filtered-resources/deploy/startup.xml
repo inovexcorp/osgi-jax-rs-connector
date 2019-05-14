@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<features name="jax-rs-osgi-startup-${project.version}" xmlns="http://karaf.apache.org/xmlns/features/v1.3.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.3.0 http://karaf.apache.org/xmlns/features/v1.3.0">
+
+	<repository>mvn:${project.groupId}/features/${project.version}/xml/features</repository>
+
+	<feature name="jax-rs-osgi-startup" version="${project.version}" description="JAX-RS-OSGi StartUp" install="auto">
+		<feature version="${project.version}">jax-rs-connector</feature>
+	</feature>
+
+</features>

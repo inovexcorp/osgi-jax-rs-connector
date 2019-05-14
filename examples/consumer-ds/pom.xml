@@ -11,9 +11,9 @@
         <relativePath>../</relativePath>
     </parent>
 
-    <artifactId>example-publisher-ds</artifactId>
+    <artifactId>example-consumer-ds</artifactId>
     <packaging>bundle</packaging>
-    <name>OSGi - JAX-RS Connector - Examples - Publisher - DS</name>
+    <name>OSGi - JAX-RS Connector - Examples - Consumer - DS</name>
 
     <dependencies>
 		<dependency>
@@ -26,21 +26,34 @@
 			<artifactId>org.osgi.service.cm</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.osgi</groupId>
-			<artifactId>org.osgi.service.component.annotations</artifactId>
-			<scope>provided</scope>
-		</dependency>
 
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
         </dependency>
+        
+        <dependency>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-client</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+			<scope>provided</scope>
         </dependency>
+		
+        <dependency>
+            <groupId>com.eclipsesource.jaxrs</groupId>
+            <artifactId>consumer</artifactId>
+        </dependency>
+
+        <dependency>
+		    <groupId>org.json</groupId>
+		    <artifactId>json</artifactId>
+		    <version>20180813</version>
+		</dependency>
     </dependencies>
 
 </project>

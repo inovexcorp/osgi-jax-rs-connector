@@ -1,29 +1,30 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<parent>
-		<groupId>com.eclipsesource</groupId>
-		<artifactId>providers</artifactId>
-		<version>1.0.2.ONMS</version>
-		<relativePath>../pom.xml</relativePath>
-	</parent>
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.eclipsesource.jaxrs</groupId>
+
+    <parent>
+        <groupId>com.eclipsesource.jaxrs</groupId>
+        <artifactId>providers</artifactId>
+        <version>1.0.2.ONMS</version>
+        <relativePath>../</relativePath>
+    </parent>
+
 	<artifactId>provider-swagger</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.2.ONMS</version>
+	<name>OSGi - JAX-RS Connector - Providers - Swagger</name>
+
 	<dependencies>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
-			<version>${servlet.version}</version>
 			<scope>provided</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>io.swagger</groupId>
 			<artifactId>swagger-jersey2-jaxrs</artifactId>
-			<version>${swagger.version}</version>
 		</dependency>
 	</dependencies>
 

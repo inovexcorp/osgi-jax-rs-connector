@@ -1,20 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<parent>
-		<groupId>com.eclipsesource.jaxrs</groupId>
-		<artifactId>jersey</artifactId>
-		<version>1.0.2.ONMS</version>
-		<relativePath>../pom.xml</relativePath>
-	</parent>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.eclipsesource.jaxrs</groupId>
+
+    <parent>
+        <groupId>com.eclipsesource.jaxrs</groupId>
+        <artifactId>jersey</artifactId>
+        <version>1.0.2.ONMS</version>
+        <relativePath>../</relativePath>
+    </parent>
+
 	<artifactId>jersey-all</artifactId>
-	<description>Shaded jersey-all ${jersey.version}</description>
+	<packaging>jar</packaging>
+	<name>OSGi - JAX-RS Connector - Jersey Shades - jersey-all ${jersey.version}</name>
+
 	<dependencies>
 		<dependency>
 			<groupId>javax.ws.rs</groupId>
 			<artifactId>javax.ws.rs-api</artifactId>
-			<version>${jaxrs.version}</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
@@ -24,6 +28,7 @@
 			<type>jar</type>
 			<classifier>sources</classifier>
 		</dependency>
+
 		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>
 			<artifactId>jersey-container-servlet</artifactId>
