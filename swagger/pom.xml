@@ -11,14 +11,29 @@
         <relativePath>../</relativePath>
     </parent>
 
-	<artifactId>jersey</artifactId>
-	<packaging>pom</packaging>
-	<name>OSGi - JAX-RS Connector - Jersey Shades</name>
+	<artifactId>swagger-all</artifactId>
+	<packaging>jar</packaging>
+	<name>OSGi - JAX-RS Connector - swagger-all ${swagger.version}</name>
 
-	<modules>
-		<module>com.eclipsesource.jaxrs.jersey.all</module>
-		<module>com.eclipsesource.jaxrs.jersey.min</module>
-	</modules>
+	<dependencies>
+		<dependency>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-jersey2-jaxrs</artifactId>
+			<version>${swagger.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.containers</groupId>
+			<artifactId>jersey-container-servlet-core</artifactId>
+			<version>${jersey.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-multipart</artifactId>
+			<version>${jersey.version}</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<plugins>
@@ -45,23 +60,24 @@
 					<instructions>
 						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
 						<Bundle-Version>${project.version}</Bundle-Version>
-						<Bundle-Vendor>Holger Staudacher</Bundle-Vendor>
+						<Bundle-Vendor>EclipseSource</Bundle-Vendor>
 						<_exportcontents>
-							javax.ws.rs.*;version="${jaxrs.version}",
-							javax.annotation.*,
-							org.glassfish.*,
-							javax.inject.*
+							io.swagger.*,
+							com.fasterxml.jackson.*;version="2.4.5"
 						</_exportcontents>
 						<Import-Package>
+							!com.google.*,
+							!org.apache.commons.*,
+							!org.dom4j.*,
+							!org.joda.*,
+							!org.slf4j.*,
+							!org.w3c.*,
+							!org.xml.sax.*,
 							!com.sun.jdi.*,
-							!sun.misc,
-							!javax.persistence,
-							!scala.*,
-							!org.jruby.*,
-							!com.twitter.util.*,
-							!jersey.repackaged.*,
+							!sun.misc.*,
+							!javax.activation.*,
 							javax.servlet.*;version="[2.3.0,4.0.0)";resolution:=optional,
-							javax.annotation,
+							org.glassfish.jersey.*,
 							*
 						</Import-Package>
 						<Bundle-RequiredExecutionEnvironment>JavaSE-1.7</Bundle-RequiredExecutionEnvironment>
@@ -117,4 +133,5 @@
 
 		</plugins>
 	</build>
+
 </project>
