@@ -16,8 +16,8 @@
 	<name>OSGi - JAX-RS Connector - Jersey Shades</name>
 
 	<modules>
-		<module>com.eclipsesource.jaxrs.jersey.all</module>
-		<module>com.eclipsesource.jaxrs.jersey.min</module>
+		<module>jersey-all</module>
+		<module>jersey-min</module>
 	</modules>
 
 	<build>

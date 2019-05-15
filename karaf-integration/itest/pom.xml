@@ -114,11 +114,10 @@
         </dependency>
         <dependency>
             <groupId>com.eclipsesource.jaxrs</groupId>
-            <artifactId>jax-rs-sample</artifactId>
+            <artifactId>example-consumer-publisher</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
     <build>

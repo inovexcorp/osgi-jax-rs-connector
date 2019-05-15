@@ -12,6 +12,7 @@
     </parent>
 
 	<artifactId>jersey-min</artifactId>
+	<packaging>pom</packaging>
 	<name>OSGi - JAX-RS Connector - Jersey Shades - jersey-min ${jersey.version}</name>
 
 	<dependencies>
