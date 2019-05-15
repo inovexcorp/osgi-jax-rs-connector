@@ -12,7 +12,7 @@
     </parent>
 
 	<artifactId>swagger-all</artifactId>
-	<packaging>jar</packaging>
+	<packaging>bundle</packaging>
 	<name>OSGi - JAX-RS Connector - swagger-all ${swagger.version}</name>
 
 	<dependencies>

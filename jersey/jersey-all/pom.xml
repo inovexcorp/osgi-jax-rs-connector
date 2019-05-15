@@ -12,7 +12,7 @@
     </parent>
 
 	<artifactId>jersey-all</artifactId>
-	<packaging>pom</packaging>
+	<packaging>bundle</packaging>
 	<name>OSGi - JAX-RS Connector - Jersey Shades - jersey-all ${jersey.version}</name>
 
 	<dependencies>
