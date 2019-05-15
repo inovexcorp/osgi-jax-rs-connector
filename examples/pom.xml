@@ -16,12 +16,13 @@
     <name>OSGi - JAX-RS Connector - Examples</name>
 
     <modules>
+		<module>consumer-caller</module>
 		<module>consumer-ds</module>
-		<!--module>consumer-caller</module-->
-        <module>publisher-pojo</module>
+		<module>consumer-publisher</module>
         <module>publisher-ds</module>
         <module>publisher-mvc</module>
-        <!--module>publisher-swagger</module-->
+        <module>publisher-pojo</module>
+        <module>publisher-swagger</module>
     </modules>
 
 	<build>

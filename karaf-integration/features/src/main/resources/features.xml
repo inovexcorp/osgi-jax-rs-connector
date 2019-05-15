@@ -75,4 +75,15 @@
         <bundle dependency="true">mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider/${jackson.version}</bundle>
     </feature>
 
+    <!-- Example Features -->
+    <feature name="jax-rs-examples" version="${project.version}" description="JAX RS OSGi Examples">
+		<bundle>mvn:com.eclipsesource.jaxrs/example-consumer-caller/${project.version}</bundle>
+		<bundle>mvn:com.eclipsesource.jaxrs/example-consumer-ds/${project.version}</bundle>
+		<bundle>mvn:com.eclipsesource.jaxrs/example-consumer-publisher/${project.version}</bundle>
+        <bundle>mvn:com.eclipsesource.jaxrs/example-publisher-ds/${project.version}</bundle>
+        <bundle>mvn:com.eclipsesource.jaxrs/example-publisher-mvc/${project.version}</bundle>
+        <bundle>mvn:com.eclipsesource.jaxrs/example-publisher-pojo/${project.version}</bundle>
+        <bundle>mvn:com.eclipsesource.jaxrs/example-publisher-swagger/${project.version}</bundle>
+    </feature>
+
 </features>

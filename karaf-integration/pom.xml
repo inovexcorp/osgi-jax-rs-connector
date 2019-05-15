@@ -17,9 +17,8 @@
 
     <modules>
         <module>features</module>
-        <module>itest</module>
-        <module>jax-rs-sample</module>
         <module>shell-commands</module>
+        <module>itest</module>
         <module>assembly</module>
     </modules>
 

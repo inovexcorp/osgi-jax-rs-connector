@@ -6,15 +6,15 @@
 
     <parent>
         <groupId>com.eclipsesource.jaxrs</groupId>
-        <artifactId>karaf-integration</artifactId>
+        <artifactId>examples</artifactId>
         <version>1.0.2.ONMS</version>
         <relativePath>../</relativePath>
     </parent>
 
-    <artifactId>jax-rs-sample</artifactId>
+    <artifactId>example-publisher-swagger</artifactId>
     <packaging>bundle</packaging>
-    <name>OSGi - JAX-RS Connector - Karaf Integration - Example</name>
-	
+    <name>OSGi - JAX-RS Connector - Examples - Publisher - Swagger</name>
+
     <dependencies>
 		<dependency>
 			<groupId>org.osgi</groupId>
@@ -26,32 +26,24 @@
 			<artifactId>org.osgi.service.cm</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.osgi</groupId>
-			<artifactId>org.osgi.service.component.annotations</artifactId>
+
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
 			<scope>provided</scope>
-		</dependency>
+        </dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+			<scope>provided</scope>
         </dependency>
-		
+        
         <dependency>
-            <groupId>com.eclipsesource.jaxrs</groupId>
-            <artifactId>consumer</artifactId>
-        </dependency>
+		    <groupId>io.swagger</groupId>
+		    <artifactId>swagger-annotations</artifactId>
+		    <version>${swagger.version}</version>
+		</dependency>
     </dependencies>
-
-	<build>
-		<finalName>${project.artifactId}-${project.version}</finalName>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<extensions>true</extensions>
-			</plugin>
-		</plugins>
-	</build>
 
 </project>

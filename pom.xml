@@ -14,8 +14,8 @@
 		<module>connector</module>
 		<module>jersey</module>
 		<module>providers</module>
-		<module>karaf-integration</module>
 		<module>examples</module>
+		<module>karaf-integration</module>
 	</modules>
 
 	<properties>

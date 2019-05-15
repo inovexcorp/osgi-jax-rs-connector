@@ -1,5 +1,3 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
 Bundle-Name: OSG JAX-RS Swagger Example
 Bundle-SymbolicName: com.eclipsesource.jaxrs.connector.example.swagger
 Bundle-Version: 2.0.0.qualifier
@@ -11,3 +9,4 @@ Import-Package: io.swagger.annotations;version="[1.5.4,2.0.0)",
  org.osgi.framework;version="[1.5.0,2.0.0)",
  org.osgi.service.cm;version="[1.2.0,2.0.0)"
 Bundle-Activator: com.eclipsesource.jaxrs.connector.example.swagger.Activator
+Bundle-RequiredExecutionEnvironment: ${required.jdk.version}
