@@ -60,6 +60,11 @@
 							!org.jruby.*,
 							!com.twitter.util.*,
 							!jersey.repackaged.*,
+							!javax.ws.rs.*,
+							!org.glassfish.*,
+							!javax.inject.*,
+							!com.google.appengine.api,
+							!com.google.apphosting.api,
 							javax.servlet.*;version="[2.3.0,4.0.0)";resolution:=optional,
 							javax.annotation,
 							*
