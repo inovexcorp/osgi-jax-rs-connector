@@ -4,31 +4,64 @@
         <feature>http</feature>
         <feature>scr</feature>
 
-        <bundle dependency="true">mvn:javax.annotation/javax.annotation-api/1.2</bundle>
-        <bundle dependency="true">mvn:javax.servlet/javax.servlet-api/${servlet.version}</bundle>
-        <bundle dependency="true">mvn:com.eclipsesource.jaxrs/jersey-min/${project.version}</bundle>
+        <bundle dependency="true">mvn:javax.annotation/javax.annotation-api/${javax.annotation.version}</bundle>
+        <bundle dependency="true">mvn:javax.servlet/javax.servlet-api/${javax.servlet3.version}</bundle>
+        <bundle dependency="true">mvn:javax.ws.rs/javax.ws.rs-api/${jaxrs.version}</bundle>
+		<bundle dependency="true">mvn:javax.validation/validation-api/1.1.0.Final</bundle>
+		
+        <!--bundle dependency="true">mvn:com.eclipsesource.jaxrs/jersey-min/${project.version}</bundle-->
+		<!--feature>jersey-all</feature-->
+		<bundle dependency="true">mvn:com.eclipsesource.jaxrs/jersey-all/${project.version}</bundle>
 
         <bundle>mvn:com.eclipsesource.jaxrs/consumer/${project.version}</bundle>
         <bundle>mvn:com.eclipsesource.jaxrs/publisher/${project.version}</bundle>
         <bundle>mvn:com.eclipsesource.jaxrs/publisher-api/${project.version}</bundle>
     </feature>
 
-    <feature name="jersey-all" version="${project.version}" resolver="(obr)" description="Jersey JAX RS OSGi Connector">
+
+    <!--feature name="jersey-all" version="${project.version}" resolver="(obr)" description="Jersey JAX RS OSGi Connector">
         <feature>jax-rs-connector</feature>
 
         <bundle dependency="true">mvn:com.eclipsesource.jaxrs/jersey-all/${project.version}</bundle>
+    </feature-->
+
+
+    <!--feature name="jersey-min" version="${project.version}" resolver="(obr)" description="Jersey JAX RS OSGi Connector">
+        <feature>jax-rs-connector</feature>
+
+        <bundle dependency="true">mvn:com.eclipsesource.jaxrs/jersey-min/${project.version}</bundle>
+    </feature-->
+
+    <feature name="jax-rs-shell-commands" version="${project.version}" description="JAX RS OSGi Shell Commands">
+        <bundle>mvn:com.eclipsesource.jaxrs/publisher-api/${project.version}</bundle>
+        <bundle>mvn:com.eclipsesource.jaxrs/shell-commands/${project.version}</bundle>
     </feature>
 
-    <feature name="jax-rs-provider-moxy" version="${project.version}" description="Moxy Json Provider for Jersey">
+
+    <!--feature name="jax-rs-provider-moxy" version="${project.version}" description="Moxy Json Provider for Jersey">
         <feature version="${eclipselink.moxy.version}">eclipselink-moxy</feature>
 
         <bundle>mvn:com.eclipsesource.jaxrs/provider-moxy/${project.version}</bundle>
     </feature>
+    <feature name="eclipselink-moxy" version="${eclipselink.moxy.version}" description="Eclipselink :: Moxy">
+        <bundle dependency="true">mvn:org.eclipse.persistence/org.eclipse.persistence.core/${eclipselink.moxy.version}</bundle>
+        <bundle dependency="true">mvn:org.eclipse.persistence/org.eclipse.persistence.asm/${eclipselink.moxy.version}</bundle>
+        <bundle dependency="true">mvn:org.eclipse.persistence/org.eclipse.persistence.antlr/${eclipselink.moxy.version}</bundle>
+        <bundle dependency="true">mvn:org.eclipse.persistence/org.eclipse.persistence.moxy/${eclipselink.moxy.version}</bundle>
+    </feature-->
     
     <feature  name='jax-rs-provider-jackson' version='${project.version}' description="Jackson Json Provider for Jersey" >
         <feature version="${jackson.version}">jackson</feature>
 
         <bundle>mvn:com.eclipsesource.jaxrs/provider-jackson/${project.version}</bundle>
+    </feature>
+    <feature name="jackson" version="${jackson.version}" description="Jackson :: Jaxrs">
+        <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-annotations/${jackson.annotation.version}</bundle>
+        <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-core/${jackson.version}</bundle>
+        <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-databind/${jackson.version}</bundle>
+        <bundle dependency="true">mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-base/${jackson.version}</bundle>
+        <bundle dependency="true">mvn:com.fasterxml.jackson.module/jackson-module-jaxb-annotations/${jackson.version}</bundle>
+        <bundle dependency="true">mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider/${jackson.version}</bundle>
     </feature>
 
     <feature name="jax-rs-provider-gson" version="${project.version}">
@@ -48,44 +81,24 @@
         <bundle>mvn:com.eclipsesource.jaxrs/provider-sse/${project.version}</bundle>
     </feature>
     
-    <feature name="jax-rs-provider-swagger" version="${project.version}">-->
-        <bundle dependency="true">mvn:com.eclipsesource.jaxrs/swagger-all/${swagger.version}</bundle>
+    <feature name="jax-rs-provider-swagger" version="${project.version}">
+		<feature version="${jackson.version}">jackson</feature>
+
+        <bundle dependency="true">mvn:com.eclipsesource.jaxrs/swagger-all/${project.version}</bundle>
         <bundle>mvn:com.eclipsesource.jaxrs/provider-swagger/${project.version}</bundle>
     </feature>
 
-    <feature name="eclipselink-moxy" version="${eclipselink.moxy.version}" description="Eclipselink :: Moxy">
-        <bundle dependency="true">mvn:org.eclipse.persistence/org.eclipse.persistence.core/${eclipselink.moxy.version}</bundle>
-        <bundle dependency="true">mvn:org.eclipse.persistence/org.eclipse.persistence.asm/${eclipselink.moxy.version}</bundle>
-        <bundle dependency="true">mvn:org.eclipse.persistence/org.eclipse.persistence.antlr/${eclipselink.moxy.version}</bundle>
-        <bundle dependency="true">mvn:org.eclipse.persistence/org.eclipse.persistence.moxy/${eclipselink.moxy.version}</bundle>
-    </feature>
 
-    <feature name="jax-rs-shell-commands" version="${project.version}" description="JAX RS OSGi Shell Commands">
-        <bundle>mvn:com.eclipsesource.jaxrs/publisher-api/${project.version}</bundle>
-        <bundle>mvn:com.eclipsesource.jaxrs/shell-commands/${project.version}</bundle>
-    </feature>
-
-    <!-- Dependency Features -->
-    <feature name="jackson" version="${jackson.version}" description="Jackson :: Jaxrs">
-        <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-annotations/${jackson.annotation.version}</bundle>
-        <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-core/${jackson.version}</bundle>
-        <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-databind/${jackson.version}</bundle>
-        <bundle dependency="true">mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-base/${jackson.version}</bundle>
-        <bundle dependency="true">mvn:com.fasterxml.jackson.module/jackson-module-jaxb-annotations/${jackson.version}</bundle>
-        <bundle dependency="true">mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider/${jackson.version}</bundle>
-    </feature>
-
-    <!-- Example Features -->
     <feature name="jax-rs-examples" version="${project.version}" description="JAX RS OSGi Examples">
 		<bundle>mvn:com.eclipsesource.jaxrs/example-consumer-caller/${project.version}</bundle>
 		<bundle>mvn:com.eclipsesource.jaxrs/example-consumer-ds/${project.version}</bundle>
 		<bundle>mvn:com.eclipsesource.jaxrs/example-consumer-publisher/${project.version}</bundle>
         <bundle>mvn:com.eclipsesource.jaxrs/example-publisher-ds/${project.version}</bundle>
-        <bundle>mvn:com.eclipsesource.jaxrs/example-publisher-mvc/${project.version}</bundle>
+        <!--bundle>mvn:com.eclipsesource.jaxrs/example-publisher-mvc/${project.version}</bundle-->
         <bundle>mvn:com.eclipsesource.jaxrs/example-publisher-pojo/${project.version}</bundle>
 
-		<feature version="${project.version}">jax-rs-provider-swagger</feature>
-        <bundle>mvn:com.eclipsesource.jaxrs/example-publisher-swagger/${project.version}</bundle>
+		<!--feature version="${project.version}">jax-rs-provider-swagger</feature-->
+        <!--bundle>mvn:com.eclipsesource.jaxrs/example-publisher-swagger/${project.version}</bundle-->
 		<!--bundle>mvn:io.swagger/swagger-annotations/${swagger.version}</bundle-->
     </feature>
 

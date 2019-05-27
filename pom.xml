@@ -13,6 +13,7 @@
 	<modules>
 		<module>connector</module>
 		<module>jersey</module>
+		<module>swagger</module>
 		<module>providers</module>
 		<module>examples</module>
 		<module>karaf-integration</module>
@@ -57,15 +58,25 @@
 		<pax-exam.version>4.9.1</pax-exam.version>
 
 		<!-- Dependency version information -->
+		<javax.annotation.version>1.2</javax.annotation.version>
+		<javax.servlet2.version>2.5</javax.servlet2.version>
+		<javax.servlet3.version>3.0.1</javax.servlet3.version>
+		<jaxrs.version>2.1.1</jaxrs.version>
+		<javax.validation.version>1.1.0.Final</javax.validation.version>
+
+		<jersey.version>2.22.2</jersey.version>
+
 		<eclipselink.moxy.version>2.5.2</eclipselink.moxy.version>
+
 		<jackson.version>2.9.8</jackson.version>
 		<jackson.annotation.version>2.9.0</jackson.annotation.version>
+
 		<gson.version>2.8.5</gson.version>
+
 		<javaee-web-api.version>7.0</javaee-web-api.version>
-		<jaxrs.version>2.1.1</jaxrs.version>
-		<jersey.version>2.22.2</jersey.version>
+
 		<pax.url.aether.version>2.5.2</pax.url.aether.version>
-		<servlet.version>3.0.1</servlet.version>
+
 		<swagger.version>1.5.22</swagger.version>
 	</properties>
 
@@ -148,14 +159,35 @@
             </dependency>
 
 			<dependency>
+				<groupId>javax.annotation</groupId>
+				<artifactId>javax.annotation-api</artifactId>
+				<version>${javax.annotation.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>servlet-api</artifactId>
+				<version>${javax.servlet2.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>javax.servlet</groupId>
 				<artifactId>javax.servlet-api</artifactId>
-				<version>${servlet.version}</version>
+				<version>${javax.servlet3.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>javax.ws.rs</groupId>
 				<artifactId>javax.ws.rs-api</artifactId>
 				<version>${jaxrs.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.ws.rs</groupId>
+				<artifactId>javax.ws.rs-api</artifactId>
+				<version>${jaxrs.version}</version>
+				<classifier>sources</classifier>
+			</dependency>
+			<dependency>
+				<groupId>javax.validation</groupId>
+				<artifactId>validation-api</artifactId>
+				<version>${javax.validation.version}</version>
 			</dependency>
 
             <dependency>

@@ -22,36 +22,36 @@ import io.swagger.models.Swagger;
 
 public class OSGiJaxRsScanner extends DefaultJaxrsScanner implements SwaggerConfig {
 
-  private final SwaggerConfiguration swaggerConfiguration;
+	private final SwaggerConfiguration swaggerConfiguration;
 
-  public OSGiJaxRsScanner( SwaggerConfiguration swaggerConfiguration ) {
-    this.swaggerConfiguration = swaggerConfiguration;
-  }
+	public OSGiJaxRsScanner(SwaggerConfiguration swaggerConfiguration) {
+		this.swaggerConfiguration = swaggerConfiguration;
+	}
 
-  @Override
-  public Set<Class<?>> classesFromContext( Application app, ServletConfig sc ) {
-    Set<Class<?>> classes = super.classesFromContext( app, sc );
-    Set<Class<?>> result = new HashSet<>( classes );
-    for( Class<?> type : classes ) {
-      Class<?>[] interfaces = type.getInterfaces();
-      for( Class<?> interfaceType : interfaces ) {
-        result.add( interfaceType );
-      }
-    }
-    return result;
-  }
+	@Override
+	public Set<Class<?>> classesFromContext(Application app, ServletConfig sc) {
+		Set<Class<?>> classes = super.classesFromContext(app, sc);
+		Set<Class<?>> result = new HashSet<>(classes);
+		for (Class<?> type : classes) {
+			Class<?>[] interfaces = type.getInterfaces();
+			for (Class<?> interfaceType : interfaces) {
+				result.add(interfaceType);
+			}
+		}
+		return result;
+	}
 
-  @Override
-  public Swagger configure( Swagger swagger ) {
-    swagger.setInfo( swaggerConfiguration.getInfo() );
-    swagger.setBasePath( swaggerConfiguration.getBasePath() );
-    swagger.setHost( swaggerConfiguration.getHost() );
-    return swagger;
-  }
+	@Override
+	public Swagger configure(Swagger swagger) {
+		swagger.setInfo(swaggerConfiguration.getInfo());
+		swagger.setBasePath(swaggerConfiguration.getBasePath());
+		swagger.setHost(swaggerConfiguration.getHost());
+		return swagger;
+	}
 
-  @Override
-  public String getFilterClass() {
-    return swaggerConfiguration.getFilterClass();
-  }
+	@Override
+	public String getFilterClass() {
+		return swaggerConfiguration.getFilterClass();
+	}
 
 }

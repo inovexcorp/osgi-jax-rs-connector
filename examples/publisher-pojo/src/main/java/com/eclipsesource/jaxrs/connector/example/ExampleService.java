@@ -13,12 +13,12 @@ package com.eclipsesource.jaxrs.connector.example;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
-
-@Path( "/osgi-jax-rs-pojo" )
+@Path("/osgi-jax-rs-pojo")
 public class ExampleService {
-  
-  @GET
-  public String seyHello() {
-    return "JAX-RS and OSGi are a lovely couple.";
-  }
+
+	@GET
+	public String seyHello() {
+		return "JAX-RS and OSGi are a lovely couple.";
+	}
+
 }

@@ -47,8 +47,8 @@
 						<Bundle-Version>${project.version}</Bundle-Version>
 						<Bundle-Vendor>Holger Staudacher</Bundle-Vendor>
 						<_exportcontents>
-							javax.ws.rs.*;version="${jaxrs.version}",
-							javax.annotation.*,
+							<!--javax.annotation.*,-->
+							<!--javax.ws.rs.*;version="${jaxrs.version}",-->
 							org.glassfish.*,
 							javax.inject.*
 						</_exportcontents>
@@ -60,13 +60,13 @@
 							!org.jruby.*,
 							!com.twitter.util.*,
 							!jersey.repackaged.*,
-							!javax.ws.rs.*,
 							!org.glassfish.*,
 							!javax.inject.*,
 							!com.google.appengine.api,
 							!com.google.apphosting.api,
-							javax.servlet.*;version="[2.3.0,4.0.0)";resolution:=optional,
 							javax.annotation,
+							javax.servlet.*;version="[2.3.0,4.0.0)";resolution:=optional,
+							javax.ws.rs.*,
 							*
 						</Import-Package>
 						<Bundle-RequiredExecutionEnvironment>JavaSE-1.7</Bundle-RequiredExecutionEnvironment>

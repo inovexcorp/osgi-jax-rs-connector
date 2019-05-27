@@ -25,36 +25,35 @@ import io.swagger.config.ScannerFactory;
 import io.swagger.jaxrs.listing.ApiListingResource;
 import io.swagger.jaxrs.listing.SwaggerSerializers;
 
-
 public class Activator implements BundleActivator {
 
-  private final List<ServiceRegistration> registrations;
+	private final List<ServiceRegistration> registrations;
 
-  public Activator() {
-    registrations = new ArrayList<>();
-  }
+	public Activator() {
+		registrations = new ArrayList<>();
+	}
 
-  @Override
-  public void start( BundleContext bundleContext ) throws Exception {
-    SwaggerConfiguration swaggerConfiguration = registerSwaggerConfiguration( bundleContext );
-    ScannerFactory.setScanner( new OSGiJaxRsScanner( swaggerConfiguration ) );
-    registrations.add( bundleContext.registerService( ApiListingResource.class.getName(), new ApiListingResource(), null ) );
-    registrations.add( bundleContext.registerService( SwaggerSerializers.class.getName(), new SwaggerSerializers(), null ) );
-  }
+	@Override
+	public void start(BundleContext bundleContext) throws Exception {
+		SwaggerConfiguration swaggerConfiguration = registerSwaggerConfiguration(bundleContext);
+		ScannerFactory.setScanner(new OSGiJaxRsScanner(swaggerConfiguration));
+		registrations.add(bundleContext.registerService(ApiListingResource.class.getName(), new ApiListingResource(), null));
+		registrations.add(bundleContext.registerService(SwaggerSerializers.class.getName(), new SwaggerSerializers(), null));
+	}
 
-  private SwaggerConfiguration registerSwaggerConfiguration( BundleContext bundleContext ) {
-    SwaggerConfiguration swaggerConfiguration = new SwaggerConfiguration();
-    Dictionary<String, String> properties = new Hashtable<>();
-    properties.put( Constants.SERVICE_PID, SwaggerConfiguration.SERVICE_PID );
-    registrations.add( bundleContext.registerService( ManagedService.class.getName(), swaggerConfiguration, properties ) );
-    return swaggerConfiguration;
-  }
+	private SwaggerConfiguration registerSwaggerConfiguration(BundleContext bundleContext) {
+		SwaggerConfiguration swaggerConfiguration = new SwaggerConfiguration();
+		Dictionary<String, String> properties = new Hashtable<>();
+		properties.put(Constants.SERVICE_PID, SwaggerConfiguration.SERVICE_PID);
+		registrations.add(bundleContext.registerService(ManagedService.class.getName(), swaggerConfiguration, properties));
+		return swaggerConfiguration;
+	}
 
-  @Override
-  public void stop( BundleContext bundleContext ) throws Exception {
-    for( ServiceRegistration registration : registrations ) {
-      registration.unregister();
-    }
-    registrations.clear();
-  }
+	@Override
+	public void stop(BundleContext bundleContext) throws Exception {
+		for (ServiceRegistration registration : registrations) {
+			registration.unregister();
+		}
+		registrations.clear();
+	}
 }
