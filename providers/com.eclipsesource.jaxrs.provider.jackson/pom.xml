@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.eclipsesource.jaxrs</groupId>
         <artifactId>providers</artifactId>
-        <version>1.0.2.ONMS</version>
+        <version>0.9.0.MOBI</version>
         <relativePath>../</relativePath>
     </parent>
 

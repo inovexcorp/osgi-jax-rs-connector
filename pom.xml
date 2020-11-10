@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.eclipsesource.jaxrs</groupId>
 	<artifactId>osgi-jaxrs-connector</artifactId>
-	<version>1.0.2.ONMS</version>
+	<version>0.9.0.MOBI</version>
 	<packaging>pom</packaging>
 	<name>OSGi - JAX-RS Connector</name>
 	<description></description>
@@ -15,8 +15,8 @@
 		<module>jersey</module>
 		<module>swagger</module>
 		<module>providers</module>
-		<module>examples</module>
-		<module>karaf-integration</module>
+		<!-- <module>examples</module> -->
+		<!-- <module>karaf-integration</module> -->
 	</modules>
 
 	<properties>
@@ -44,6 +44,7 @@
 
 		<!-- OSGi version information -->
 		<osgi.core.version>6.0.0</osgi.core.version>
+        <!-- MOBI REPO <osgi-service.version>1.3.0</osgi-service.version> -->
 		<osgi.service.cm.version>1.6.0</osgi.service.cm.version>
 		<osgi.service.component.annotations.version>1.4.0</osgi.service.component.annotations.version>
 		<osgi.service.event.version>1.4.0</osgi.service.event.version>

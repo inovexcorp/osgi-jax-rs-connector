@@ -21,10 +21,8 @@
 
     <!--feature name="jersey-all" version="${project.version}" resolver="(obr)" description="Jersey JAX RS OSGi Connector">
         <feature>jax-rs-connector</feature>
-
         <bundle dependency="true">mvn:com.eclipsesource.jaxrs/jersey-all/${project.version}</bundle>
     </feature-->
-
 
     <!--feature name="jersey-min" version="${project.version}" resolver="(obr)" description="Jersey JAX RS OSGi Connector">
         <feature>jax-rs-connector</feature>
@@ -88,18 +86,23 @@
         <bundle>mvn:com.eclipsesource.jaxrs/provider-swagger/${project.version}</bundle>
     </feature>
 
-
+<!-- 
     <feature name="jax-rs-examples" version="${project.version}" description="JAX RS OSGi Examples">
 		<bundle>mvn:com.eclipsesource.jaxrs/example-consumer-caller/${project.version}</bundle>
 		<bundle>mvn:com.eclipsesource.jaxrs/example-consumer-ds/${project.version}</bundle>
 		<bundle>mvn:com.eclipsesource.jaxrs/example-consumer-publisher/${project.version}</bundle>
         <bundle>mvn:com.eclipsesource.jaxrs/example-publisher-ds/${project.version}</bundle>
-        <!--bundle>mvn:com.eclipsesource.jaxrs/example-publisher-mvc/${project.version}</bundle-->
+
         <bundle>mvn:com.eclipsesource.jaxrs/example-publisher-pojo/${project.version}</bundle>
 
-		<!--feature version="${project.version}">jax-rs-provider-swagger</feature-->
+
+    </feature>   -->
+
+        <!--bundle>mvn:com.eclipsesource.jaxrs/example-publisher-mvc/${project.version}</bundle-->
+
+    		<!--feature version="${project.version}">jax-rs-provider-swagger</feature-->
         <!--bundle>mvn:com.eclipsesource.jaxrs/example-publisher-swagger/${project.version}</bundle-->
 		<!--bundle>mvn:io.swagger/swagger-annotations/${swagger.version}</bundle-->
-    </feature>
+
 
 </features>
