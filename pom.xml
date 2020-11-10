@@ -16,7 +16,7 @@
 		<module>swagger</module>
 		<module>providers</module>
 		<!-- <module>examples</module> -->
-		<!-- <module>karaf-integration</module> -->
+		<module>karaf-integration</module>
 	</modules>
 
 	<properties>

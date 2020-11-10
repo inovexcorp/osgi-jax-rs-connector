@@ -17,7 +17,7 @@
 
     <modules>
         <module>shell-commands</module>
-        <module>itest</module>
+        <!-- <module>itest</module> -->
         <module>assembly</module>
         <module>features</module>
     </modules>
