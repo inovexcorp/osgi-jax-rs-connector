@@ -73,7 +73,7 @@ public class Configuration implements ManagedService {
   }
 
   public String getDefaultRootPath() {
-    return defaultRootPath == null ? "/services" : defaultRootPath;
+    return defaultRootPath == null ? "/mobirest" : defaultRootPath;
   }
 
 }
